@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autismo no Mundo — Dashboard OMS 2025</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#f0f4ff;
+      --card:#ffffff;
+      --primary:#4f46e5;
+      --primary-d:#3730a3;
+      --teal:#0d9488;
+      --amber:#d97706;
+      --rose:#e11d48;
+      --violet:#7c3aed;
+      --sky:#0284c7;
+      --green:#16a34a;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f5;
+      --shadow:0 1px 4px rgba(79,70,229,.08),0 6px 24px rgba(79,70,229,.07);
+      --r:14px;
+      /* Brazil palette */
+      --br-green:#0d9e47;
+      --br-yellow:#f5c800;
+      --br-blue:#003580;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+    /* ── HEADER ── */
+    header{
+      background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 45%,#0369a1 100%);
+      padding:48px 60px 40px;color:#fff;position:relative;overflow:hidden;
+    }
+    header::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;
+      background:rgba(255,255,255,.03);top:-300px;right:-150px;pointer-events:none}
+    .h-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:.65;margin-bottom:10px}
+    header h1{font-size:34px;font-weight:900;letter-spacing:-.8px;margin-bottom:8px}
+    header p{font-size:14.5px;opacity:.8;max-width:660px;line-height:1.7}
+    .h-source{display:inline-flex;align-items:center;gap:6px;margin-top:16px;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+      border-radius:999px;padding:5px 14px;font-size:11.5px;font-weight:600}
+
+    /* ── FILTER TABS ── */
+    .filter-bar{
+      background:#fff;border-bottom:1px solid var(--border);
+      padding:0 60px;display:flex;align-items:center;gap:0;
+      position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .filter-bar .fb-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--muted);margin-right:20px;white-space:nowrap}
+    .tab-btn{
+      padding:16px 28px;font-size:13.5px;font-weight:700;cursor:pointer;
+      border:none;background:transparent;color:var(--muted);
+      border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;
+    }
+    .tab-btn:hover{color:var(--text)}
+    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}
+    .tab-btn.brazil.active{color:var(--br-green);border-bottom-color:var(--br-green)}
+    .tab-btn .flag{margin-right:6px}
+
+    /* ── VIEWS ── */
+    .view{display:none}.view.active{display:block}
+
+    /* ── LAYOUT ── */
+    .wrap{max-width:1440px;margin:0 auto;padding:36px 60px 72px}
+    .sec{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+      color:var(--muted);margin:44px 0 18px;display:flex;align-items:center;gap:10px}
+    .sec .n{color:var(--primary)}.view-br .sec .n{color:var(--br-green)}
+    .sec::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    /* ── KPI ── */
+    .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}
+    .kpi{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);
+      padding:22px 20px;border-bottom:3px solid var(--c,var(--primary))}
+    .kpi .icon{font-size:22px;margin-bottom:10px}
+    .kpi .val{font-size:30px;font-weight:900;letter-spacing:-1px;color:var(--c,var(--primary));line-height:1}
+    .kpi .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:4px 0 2px}
+    .kpi .sub{font-size:11px;color:var(--muted);line-height:1.4}
+
+    /* ── CARD ── */
+    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:24px 26px}
+    .ct{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+    .cs{font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.5}
+    .card canvas{max-height:280px}.card.tall canvas{max-height:350px}.card.xtall canvas{max-height:420px}
+
+    /* ── GRIDS ── */
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .g13{display:grid;grid-template-columns:1fr 2fr;gap:20px}
+    .g31{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+
+    /* ── INFO BOX ── */
+    .info-box{background:#f8faff;border:1px solid var(--border);border-radius:var(--r);
+      padding:18px 22px;font-size:12.5px;color:#475569;line-height:1.75;margin-top:20px}
+    .info-box strong{color:var(--text)}
+
+    /* ── INSIGHT CARDS ── */
+    .ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
+    .ins{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);
+      padding:20px 22px;border-left:4px solid var(--c,var(--primary));display:flex;gap:14px}
+    .ins .ii{font-size:24px;flex-shrink:0}
+    .ins .it{font-size:13px;font-weight:800;margin-bottom:4px}
+    .ins .ib{font-size:12px;color:var(--muted);line-height:1.65}
+
+    /* ── BRAZIL HEADER BAND ── */
+    .br-band{
+      background:linear-gradient(135deg,#005c20 0%,#007a2e 50%,#003d8f 100%);
+      color:#fff;padding:28px 60px;margin-bottom:0;
+      display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+    }
+    .br-band .br-flag{font-size:40px}
+    .br-band h2{font-size:22px;font-weight:900;letter-spacing:-.5px}
+    .br-band p{font-size:13px;opacity:.82;margin-top:3px}
+    .br-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+      border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;margin-top:8px}
+
+    /* ── RISK FACTOR TAGS ── */
+    .risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:0}
+    .risk-tag{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);
+      padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+    .risk-tag .rt-icon{font-size:20px;flex-shrink:0}
+    .risk-tag .rt-title{font-size:12.5px;font-weight:700;margin-bottom:3px}
+    .risk-tag .rt-text{font-size:11.5px;color:var(--muted);line-height:1.5}
+
+    footer{text-align:center;padding:28px;font-size:11.5px;color:var(--muted);
+      border-top:1px solid var(--border);margin-top:16px;line-height:1.7}
+
+    @media(max-width:960px){
+      header,.filter-bar,.br-band{padding-left:20px;padding-right:20px}
+      .wrap{padding:24px 20px 56px}
+      .g2,.g3,.g13,.g31{grid-template-columns:1fr}
+      .tab-btn{padding:14px 16px;font-size:12px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="h-eyebrow">Organização Mundial da Saúde · Global Burden of Disease 2021</div>
+  <h1>Autismo no Mundo — Dashboard Analítico OMS</h1>
+  <p>Visualização completa dos dados globais sobre o Transtorno do Espectro Autista (TEA), com base nos relatórios oficiais da Organização Mundial da Saúde, Global Burden of Disease Study 2021 e IBGE 2025.</p>
+  <div class="h-source">📋 Fontes: OMS · GBD 2021 · CDC 2025 · IBGE Censo 2022</div>
+</header>
+
+<!-- ── FILTER TABS ── -->
+<div class="filter-bar">
+  <span class="fb-label">Visualizar:</span>
+  <button class="tab-btn active" onclick="setView('global',this)">🌍 Visão Global</button>
+  <button class="tab-btn brazil" onclick="setView('brazil',this)">🇧🇷 Brasil</button>
+</div>
+
+<!-- ════════════════════════════════
+     VIEW: GLOBAL
+════════════════════════════════ -->
+<div id="view-global" class="view active">
+<div class="wrap">
+
+  <!-- KPIs -->
+  <div class="sec"><span class="n">01</span> Números Globais</div>
+  <div class="kpi-row">
+    <div class="kpi" style="--c:#4f46e5"><div class="icon">🌐</div><div class="val">61,8M</div><div class="lbl">Pessoas com TEA</div><div class="sub">Estimativa mundial — 2021</div></div>
+    <div class="kpi" style="--c:#0284c7"><div class="icon">👥</div><div class="val">1 : 127</div><div class="lbl">Prevalência Global</div><div class="sub">0,79% da população mundial</div></div>
+    <div class="kpi" style="--c:#0d9488"><div class="icon">👶</div><div class="val">1 : 100</div><div class="lbl">Em Crianças</div><div class="sub">Estimativa OMS para crianças</div></div>
+    <div class="kpi" style="--c:#7c3aed"><div class="icon">♂️</div><div class="val">2,1 : 1</div><div class="lbl">Razão Masculino/Feminino</div><div class="sub">Homens: 1.065 · Mulheres: 508 por 100k</div></div>
+    <div class="kpi" style="--c:#d97706"><div class="icon">📉</div><div class="val">11,5M</div><div class="lbl">DALYs Anuais</div><div class="sub">Anos de vida perdidos por incapacidade</div></div>
+    <div class="kpi" style="--c:#e11d48"><div class="icon">🏥</div><div class="val">34/204</div><div class="lbl">Países com Dados</div><div class="sub">Apenas 16,7% têm dados epidemiológicos</div></div>
+  </div>
+
+  <!-- Prevalência regional + países -->
+  <div class="sec"><span class="n">02</span> Prevalência por Região e País</div>
+  <div class="g2">
+
+    <div class="card tall">
+      <div class="ct">Prevalência por Região do Mundo</div>
+      <div class="cs">Casos por 100.000 habitantes — GBD 2021. Regiões de alta renda lideram pelo acesso a diagnóstico.</div>
+      <canvas id="regioes"></canvas>
+    </div>
+
+    <div class="card tall">
+      <div class="ct">Países com Maior Taxa de Autismo</div>
+      <div class="cs">Top 12 países por prevalência (por 100.000 hab.) vs. média global — GBD/IHME 2021</div>
+      <canvas id="paises"></canvas>
+    </div>
+
+  </div>
+
+  <!-- Tendência histórica + sexo -->
+  <div class="sec"><span class="n">03</span> Tendências e Distribuição por Sexo</div>
+  <div class="g2">
+
+    <div class="card">
+      <div class="ct">Evolução da Prevalência nos EUA — CDC (2000–2022)</div>
+      <div class="cs">Casos por 1.000 crianças de 8 anos. O crescimento reflete principalmente ampliação de critérios diagnósticos.</div>
+      <canvas id="tendencia"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="ct">Distribuição por Sexo — Global</div>
+      <div class="cs">Razão global de 2,1:1 (masculino/feminino). Estudos com rastreamento ativo mostram razão mais próxima de 1,5:1, sugerindo subdiagnóstico em meninas.</div>
+      <canvas id="sexoGlobal"></canvas>
+    </div>
+
+  </div>
+
+  <!-- DALYs + comorbidades -->
+  <div class="sec"><span class="n">04</span> Carga da Doença e Comorbidades</div>
+  <div class="g31">
+
+    <div class="card">
+      <div class="ct">DALYs por Região (anos de vida ajustados por incapacidade)</div>
+      <div class="cs">Carga de incapacidade por 100.000 habitantes. Maior nos países de alta renda devido ao maior número de diagnósticos registrados — GBD 2021.</div>
+      <canvas id="dalys"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="ct">Comorbidades Mais Frequentes no TEA</div>
+      <div class="cs">% de pessoas com TEA que apresentam cada condição associada — OMS / literatura científica</div>
+      <canvas id="comorbid"></canvas>
+    </div>
+
+  </div>
+
+  <!-- DALYs por faixa etária + razão sexo por região -->
+  <div class="g2" style="margin-top:20px">
+
+    <div class="card">
+      <div class="ct">DALYs por Faixa Etária — Global</div>
+      <div class="cs">Carga de incapacidade maior em crianças. TEA está entre os top 10 causadores de incapacidade não fatal em menores de 20 anos.</div>
+      <canvas id="dalyIdade"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="ct">Razão Masculino/Feminino por Região</div>
+      <div class="cs">Países de alta renda tendem a registrar razão mais alta, possivelmente por viés diagnóstico que subestima mulheres autistas.</div>
+      <canvas id="sexoRegiao"></canvas>
+    </div>
+
+  </div>
+
+  <!-- Fatores de risco -->
+  <div class="sec"><span class="n">05</span> Fatores de Risco Identificados pela OMS</div>
+  <div class="risk-grid">
+    <div class="risk-tag"><div class="rt-icon">🧬</div><div><div class="rt-title">Idade Parental Avançada</div><div class="rt-text">Pais mais velhos no momento da concepção aumentam o risco de TEA na criança.</div></div></div>
+    <div class="risk-tag"><div class="rt-icon">🩺</div><div><div class="rt-title">Diabetes Materna</div><div class="rt-text">Diabetes gestacional está associada a maior prevalência de TEA na prole.</div></div></div>
+    <div class="risk-tag"><div class="rt-icon">🏭</div><div><div class="rt-title">Poluentes e Metais Pesados</div><div class="rt-text">Exposição pré-natal a poluentes do ar e metais pesados eleva o risco.</div></div></div>
+    <div class="risk-tag"><div class="rt-icon">👶</div><div><div class="rt-title">Prematuridade</div><div class="rt-text">Nascimento prematuro e complicações severas no parto são fatores de risco.</div></div></div>
+    <div class="risk-tag"><div class="rt-icon">⚖️</div><div><div class="rt-title">Baixo Peso ao Nascer</div><div class="rt-text">Peso inferior ao normal no nascimento correlaciona-se com maior risco de TEA.</div></div></div>
+    <div class="risk-tag"><div class="rt-icon">💊</div><div><div class="rt-title">Valproato / Carbamazepina</div><div class="rt-text">Exposição pré-natal a esses medicamentos antiepilépticos está associada ao TEA.</div></div></div>
+  </div>
+
+  <!-- Acesso a serviços -->
+  <div class="sec"><span class="n">06</span> Acesso a Serviços e Desafios Globais</div>
+  <div class="g3">
+
+    <div class="card">
+      <div class="ct">Disponibilidade de Dados por País</div>
+      <div class="cs">Apenas 34 dos 204 países possuem dados epidemiológicos sobre TEA — OMS 2021</div>
+      <canvas id="dadosPaises"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="ct">Perfil de Acesso a Serviços por Nível de Renda</div>
+      <div class="cs">Situação do acesso a diagnóstico e terapia conforme renda do país — OMS</div>
+      <canvas id="acesso"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="ct">Fator de Subdiagnóstico Estimado</div>
+      <div class="cs">Parcela da população com TEA que permanece sem diagnóstico formal, por grupo de renda</div>
+      <canvas id="subdiag"></canvas>
+    </div>
+
+  </div>
+
+  <div class="info-box">
+    <strong>⚠️ Nota metodológica OMS:</strong> A prevalência de autismo em muitos países de baixa e média renda é <strong>desconhecida</strong>.
+    Taxas mais altas em países ricos refletem, em grande parte, maior capacidade de diagnóstico — não necessariamente maior incidência real.
+    A prevalência global manteve-se estável entre 1990 e 2021 (773 → 788 por 100.000), mas o total de DALYs cresceu de 7,9M para 11,5M pelo aumento populacional.
+    Estima-se que <strong>13.400 mortes prematuras anuais</strong> ocorram por risco elevado de suicídio em autistas — GBD 2021.
+  </div>
+
+  <!-- Insights globais -->
+  <div class="sec"><span class="n">07</span> Principais Achados — OMS 2025</div>
+  <div class="ins-grid">
+    <div class="ins" style="--c:#4f46e5"><div class="ii">🌐</div><div><div class="it">62 milhões no mundo</div><div class="ib">Em 2021, 61,8 milhões de pessoas viviam com TEA globalmente — 1 em cada 127 pessoas. O número cresceu junto com a população, não com a prevalência per capita.</div></div></div>
+    <div class="ins" style="--c:#0284c7"><div class="ii">♂️</div><div><div class="it">Homens são 2× mais diagnosticados</div><div class="ib">Razão global de 2,1:1. Estudos com rastreamento ativo sugerem que meninas são sistematicamente subdiagnosticadas pelo perfil diferente de apresentação.</div></div></div>
+    <div class="ins" style="--c:#0d9488"><div class="ii">🏥</div><div><div class="it">16,7% dos países têm dados</div><div class="ib">Apenas 34 de 204 países forneceram dados epidemiológicos. Em países de baixa renda, o acesso a diagnóstico e terapia é praticamente inexistente.</div></div></div>
+    <div class="ins" style="--c:#d97706"><div class="ii">📈</div><div><div class="it">Ásia-Pacífico lidera a carga</div><div class="ib">High-income Asia Pacific tem a maior prevalência: 1.559 por 100.000 — 2× acima da média global. Japão, Coreia do Sul e Singapura têm sistemas de triagem avançados.</div></div></div>
+    <div class="ins" style="--c:#e11d48"><div class="ii">😴</div><div><div class="it">Distúrbios do sono afetam até 80%</div><div class="ib">Entre 50% e 80% das pessoas com TEA têm problemas crônicos de sono. TDAH aparece em ~30% e deficiência intelectual em 38%–67% dos casos.</div></div></div>
+    <div class="ins" style="--c:#7c3aed"><div class="ii">💔</div><div><div class="it">13.400 mortes prematuras por ano</div><div class="ib">O GBD 2021 estima 13.400 mortes anuais excedentes por risco elevado de suicídio associado ao TEA — um dado frequentemente ignorado nos debates de saúde pública.</div></div></div>
+  </div>
+
+</div><!-- /wrap global -->
+</div><!-- /view-global -->
+
+
+<!-- ════════════════════════════════
+     VIEW: BRASIL
+════════════════════════════════ -->
+<div id="view-brazil" class="view">
+
+  <div class="br-band">
+    <div class="br-flag">🇧🇷</div>
+    <div>
+      <h2>Autismo no Brasil — Dados Oficiais IBGE 2025</h2>
+      <p>Primeira publicação oficial de dados de autismo na história do Brasil, divulgada em maio de 2025 com base no Censo Demográfico 2022.</p>
+      <div class="br-badge">📊 IBGE Censo 2022 · Divulgado em maio de 2025</div>
+    </div>
+  </div>
+
+  <div class="wrap view-br">
+
+    <!-- KPIs BR -->
+    <div class="sec"><span class="n">01</span> Números do Brasil</div>
+    <div class="kpi-row">
+      <div class="kpi" style="--c:#007a2e"><div class="icon">🇧🇷</div><div class="val">2,4M</div><div class="lbl">Pessoas com TEA</div><div class="sub">Com diagnóstico declarado — IBGE 2025</div></div>
+      <div class="kpi" style="--c:#0d9488"><div class="icon">📊</div><div class="val">1,2%</div><div class="lbl">Da População</div><div class="sub">Residentes com 2 anos ou mais</div></div>
+      <div class="kpi" style="--c:#003d8f"><div class="icon">👦</div><div class="val">1 : 38</div><div class="lbl">Crianças 5–9 anos</div><div class="sub">2,6% da faixa etária — maior taxa</div></div>
+      <div class="kpi" style="--c:#7c3aed"><div class="icon">♂️</div><div class="val">1,7 : 1</div><div class="lbl">Razão Homens/Mulheres</div><div class="sub">1,5% (H) vs. 0,9% (M)</div></div>
+      <div class="kpi" style="--c:#d97706"><div class="icon">🏫</div><div class="val">508k</div><div class="lbl">Em Escolas Regulares</div><div class="sub">66,8% dos autistas em idade escolar</div></div>
+      <div class="kpi" style="--c:#e11d48"><div class="icon">🔍</div><div class="val">~5M</div><div class="lbl">Estimativa Real</div><div class="sub">Subdiagnóstico: dados oficiais subestimam</div></div>
+    </div>
+
+    <!-- Faixa etária + sexo -->
+    <div class="sec"><span class="n">02</span> Distribuição Demográfica</div>
+    <div class="g2">
+
+      <div class="card">
+        <div class="ct">Prevalência por Faixa Etária</div>
+        <div class="cs">% da população com diagnóstico de TEA por faixa etária — IBGE Censo 2022</div>
+        <canvas id="brIdade"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="ct">Proporção por Sexo e Faixa Etária (5–9 anos)</div>
+        <div class="cs">Na faixa de maior prevalência: meninos 3,8% vs. meninas 1,3% — razão de 3:1</div>
+        <canvas id="brSexo"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Raça + região -->
+    <div class="g2" style="margin-top:20px">
+
+      <div class="card">
+        <div class="ct">Prevalência por Raça/Cor</div>
+        <div class="cs">% de cada grupo racial com diagnóstico de TEA declarado ao IBGE</div>
+        <canvas id="brRaca"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="ct">Distribuição Regional</div>
+        <div class="cs">Prevalência de TEA por região do Brasil — pequena variação entre regiões</div>
+        <canvas id="brRegiao"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Brasil vs mundo + escolarização -->
+    <div class="sec"><span class="n">03</span> Brasil no Contexto Global</div>
+    <div class="g2">
+
+      <div class="card tall">
+        <div class="ct">Brasil vs. América Latina vs. Mundo</div>
+        <div class="cs">Comparativo de prevalência de TEA: Brasil, países latino-americanos selecionados e média global (por 100.000 hab.) — GBD 2021</div>
+        <canvas id="brVsMundo"></canvas>
+      </div>
+
+      <div class="card tall">
+        <div class="ct">Escolarização de Autistas no Brasil</div>
+        <div class="cs">Situação educacional das 760.800 pessoas autistas em idade escolar (6+) — IBGE 2025</div>
+        <canvas id="brEscola"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Dados vs. estimativas -->
+    <div class="g13" style="margin-top:20px">
+
+      <div class="card">
+        <div class="ct">Diagnóstico vs. Estimativa Real</div>
+        <div class="cs">Comparativo entre dados oficiais e projeções</div>
+        <canvas id="brDiagVsReal"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="ct">Sexo por Faixa Etária — Brasil</div>
+        <div class="cs">Prevalência de TEA por faixa etária separada por sexo — IBGE 2025</div>
+        <canvas id="brSexoIdade"></canvas>
+      </div>
+
+    </div>
+
+    <div class="info-box" style="border-left:4px solid var(--br-green)">
+      <strong>📋 Contexto importante:</strong> Os dados do IBGE 2025 são autodeclarados — um agente perguntou se algum morador recebeu diagnóstico de TEA feito por profissional de saúde.
+      Isso significa que os <strong>2,4 milhões</strong> representam apenas casos com diagnóstico formal. Considerando o subdiagnóstico histórico no Brasil (especialmente em adultos, mulheres e populações de baixa renda),
+      estimativas não oficiais apontam para <strong>5 a 6,9 milhões de autistas</strong> no país.
+      O Brasil foi o <strong>1º país a obter dados oficiais de prevalência na história</strong>, publicados em maio de 2025.
+    </div>
+
+    <!-- Insights brasil -->
+    <div class="sec"><span class="n">04</span> Principais Achados — Brasil</div>
+    <div class="ins-grid">
+      <div class="ins" style="--c:#007a2e"><div class="ii">🇧🇷</div><div><div class="it">Dado inédito na história</div><div class="ib">Em maio de 2025, o Brasil publicou pela primeira vez um número oficial de autismo. Antes, todos os dados eram estimativas extrapoladas de outros países.</div></div></div>
+      <div class="ins" style="--c:#003d8f"><div class="ii">👧</div><div><div class="it">Crianças 5–9 anos: maior prevalência</div><div class="ib">2,6% (1 em 38) — a maior entre todas as faixas. Meninos: 3,8% | Meninas: 1,3%. A queda com a idade reflete subdiagnóstico em adultos, não remissão.</div></div></div>
+      <div class="ins" style="--c:#7c3aed"><div class="ii">♀️</div><div><div class="it">Mulheres subdiagnosticadas</div><div class="ib">Razão de 1,7:1 (H/M) no geral, mas 3:1 nas crianças de 5–9. Evidências sugerem que mulheres são mais frequentemente diagnosticadas com depressão e ansiedade em vez de TEA.</div></div></div>
+      <div class="ins" style="--c:#0d9488"><div class="ii">🏫</div><div><div class="it">66,8% em escolas regulares</div><div class="ib">508.000 autistas estão matriculados em escolas regulares — uma conquista da política de inclusão brasileira. Mas ainda faltam recursos, suporte e professores capacitados.</div></div></div>
+      <div class="ins" style="--c:#d97706"><div class="ii">🌍</div><div><div class="it">Abaixo da média da América do Sul</div><div class="ib">Com 606 por 100.000 hab., o Brasil está abaixo de Chile (1.057), Argentina (1.027) e Uruguai (1.013). Diferença atribuída ao subdiagnóstico, não à menor incidência.</div></div></div>
+      <div class="ins" style="--c:#e11d48"><div class="ii">🏥</div><div><div class="it">Acesso a terapias ainda limitado</div><div class="ib">Estudo de 2026 aponta que o acesso ao diagnóstico e terapias para autistas no Brasil ainda é limitado — especialmente em regiões Norte e Nordeste e para a população de baixa renda.</div></div></div>
+    </div>
+
+  </div><!-- /wrap br -->
+</div><!-- /view-brazil -->
+
+<footer>
+  Dashboard construído com dados públicos · <strong>OMS</strong> — Autism Spectrum Disorders Fact Sheet 2025 ·
+  <strong>GBD 2021</strong> — Lancet Psychiatry (PMC11750762) ·
+  <strong>CDC</strong> — ADDM Community Report 2025 ·
+  <strong>IBGE</strong> — Censo Demográfico 2022 (divulgado mai/2025)<br>
+  Todos os dados têm finalidade educacional e analítica. Não substituem avaliação clínica.
+</footer>
+
+<script>
+  /* ─── TOGGLE ─── */
+  function setView(v, btn) {
+    document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('view-' + v).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+  Chart.defaults.color = '#64748b';
+  const leg = { labels: { padding:14, usePointStyle:true, pointStyleWidth:10, font:{ size:12 } } };
+
+  /* ═══════════════════════════════
+     GLOBAL CHARTS
+  ═══════════════════════════════ */
+
+  // 1. Prevalência por Região
+  new Chart('regioes', {
+    type: 'bar',
+    data: {
+      labels: ['Ásia-Pacífico\n(Alta renda)','Australásia','Am. Norte\n(Alta renda)','Europa\nOcidental','Leste\nEuropeu','Caribe','Am. Latina\nTropical','Leste\nAsiático','Sul da\nÁsia','Média\nGlobal'],
+      datasets: [{
+        label: 'Por 100.000 hab.',
+        data: [1559.5, 1191.0, 1097.2, 920, 760, 682, 614.5, 660.7, 610, 788.3],
+        backgroundColor: ['#4f46e5','#7c3aed','#0284c7','#0d9488','#16a34a','#d97706','#16a34a','#0ea5e9','#f59e0b','#e11d48'],
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw.toLocaleString('pt-BR')} por 100k` } } },
+      scales: {
+        y: { grid:{color:'#f1f5f9'}, ticks:{ callback: v => v.toLocaleString('pt-BR') } },
+        x: { grid:{display:false}, ticks:{ font:{size:10} } }
+      }
+    }
+  });
+
+  // 2. Top Países
+  new Chart('paises', {
+    type: 'bar',
+    data: {
+      labels: ['Singapura','Coreia do Sul','Japão','Austrália','Canadá','EUA','Chile','Argentina','Uruguai','Média Global','Brasil','Sul da Ásia'],
+      datasets: [{
+        data: [1458, 1447, 1446, 1158, 1068, 1050, 1057, 1027, 1013, 843, 606, 610],
+        backgroundColor: c => {
+          const v = c.raw;
+          if (v >= 1000) return '#4f46e5';
+          if (v >= 800)  return '#0284c7';
+          if (c.label === 'Brasil') return '#007a2e';
+          return '#94a3b8';
+        },
+        borderRadius: 7, borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw.toLocaleString('pt-BR')} por 100k` } } },
+      scales: { x:{ grid:{color:'#f1f5f9'} }, y:{ grid:{display:false}, ticks:{font:{size:11}} } }
+    }
+  });
+
+  // 3. Tendência EUA
+  new Chart('tendencia', {
+    type: 'line',
+    data: {
+      labels: ['2000','2002','2004','2006','2008','2010','2012','2014','2016','2018','2020','2022'],
+      datasets: [{
+        label: 'Por 1.000 crianças (EUA)',
+        data: [6.7, 6.6, 8.0, 9.0, 11.3, 14.7, 14.6, 16.8, 18.5, 23.0, 27.6, 32.2],
+        borderColor: '#4f46e5', backgroundColor: 'rgba(79,70,229,.12)',
+        borderWidth: 3, pointBackgroundColor: '#4f46e5', pointRadius: 4,
+        fill: true, tension: 0.35
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw} por 1.000 (1 em ${Math.round(1000/c.raw)})` } } },
+      scales: { y:{grid:{color:'#f1f5f9'}}, x:{grid:{display:false}} }
+    }
+  });
+
+  // 4. Sexo global
+  new Chart('sexoGlobal', {
+    type: 'doughnut',
+    data: {
+      labels: ['Masculino — 1.065 por 100k', 'Feminino — 508 por 100k'],
+      datasets: [{ data: [42133879, 19689661], backgroundColor:['#0284c7','#f472b6'], borderWidth:0, hoverOffset:10 }]
+    },
+    options: {
+      cutout: '68%',
+      plugins: {
+        legend: { ...leg, position:'bottom' },
+        tooltip: { callbacks:{ label: c => ` ${(c.raw/1000000).toFixed(1)}M pessoas` } }
+      }
+    }
+  });
+
+  // 5. DALYs por região
+  new Chart('dalys', {
+    type: 'bar',
+    data: {
+      labels: ['Ásia-Pac.\nAlta renda','América Norte\nAlta renda','Australásia','Europa\nOcidental','Am. Lat.\nTropical','Média\nGlobal'],
+      datasets: [{
+        data: [293.9, 204.1, 200.0, 175.0, 114.4, 147.6],
+        backgroundColor: ['#4f46e5','#0284c7','#7c3aed','#0d9488','#16a34a','#e11d48'],
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw} DALYs por 100k` } } },
+      scales: {
+        y:{ grid:{color:'#f1f5f9'}, title:{display:true, text:'DALYs por 100.000'} },
+        x:{ grid:{display:false}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  // 6. Comorbidades
+  new Chart('comorbid', {
+    type: 'bar',
+    data: {
+      labels: ['Dist. Sono','Defic. Intelectual','TDAH','Ansiedade','Depressão','Epilepsia'],
+      datasets: [{
+        data: [65, 52, 30, 20, 11, 8],
+        backgroundColor: ['#7c3aed','#4f46e5','#0284c7','#0d9488','#d97706','#e11d48'],
+        borderRadius: 7, borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ~${c.raw}% dos casos TEA` } } },
+      scales: {
+        x:{ max:80, ticks:{callback: v => v+'%'}, grid:{color:'#f1f5f9'} },
+        y:{ grid:{display:false} }
+      }
+    }
+  });
+
+  // 7. DALYs por faixa etária
+  new Chart('dalyIdade', {
+    type: 'bar',
+    data: {
+      labels: ['< 5 anos','5–9 anos','10–14 anos','15–19 anos','20–29 anos','30–49 anos','50–69 anos','70+ anos'],
+      datasets: [{
+        data: [169.2, 165.0, 163.4, 160.0, 148.0, 140.0, 135.0, 90.0],
+        backgroundColor: c => {
+          const colors = ['#4f46e5','#4f46e5','#7c3aed','#0284c7','#0d9488','#16a34a','#d97706','#94a3b8'];
+          return colors[c.dataIndex] || '#4f46e5';
+        },
+        borderRadius: 7, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw} DALYs por 100k` } } },
+      scales: {
+        y:{ grid:{color:'#f1f5f9'}, title:{display:true, text:'DALYs por 100.000'} },
+        x:{ grid:{display:false}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  // 8. Razão M/F por região
+  new Chart('sexoRegiao', {
+    type: 'bar',
+    data: {
+      labels: ['Am. Norte\n(Alta renda)','Ásia-Pac.\n(Alta renda)','Europa Occ.','Australásia','Am. Lat.\nTropical','Sul da Ásia','Global'],
+      datasets: [{
+        label: 'Razão M:F',
+        data: [3.4, 3.1, 2.5, 2.3, 1.8, 1.6, 2.1],
+        backgroundColor: c => c.raw >= 3 ? '#4f46e5' : c.raw >= 2.5 ? '#0284c7' : c.raw >= 2 ? '#0d9488' : '#16a34a',
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` Razão ${c.raw}:1 (masc:fem)` } } },
+      scales: {
+        y:{ min:0, max:4, grid:{color:'#f1f5f9'}, title:{display:true, text:'Razão masculino : feminino'} },
+        x:{ grid:{display:false}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  // 9. Dados disponíveis por país
+  new Chart('dadosPaises', {
+    type: 'doughnut',
+    data: {
+      labels: ['Com dados epidemiológicos (34)', 'Sem dados disponíveis (170)'],
+      datasets: [{ data:[34, 170], backgroundColor:['#4f46e5','#e2e8f0'], borderWidth:0, hoverOffset:8 }]
+    },
+    options: { cutout:'65%', plugins:{ legend:{...leg, position:'bottom'}, tooltip:{ callbacks:{ label: c => ` ${c.raw} países` } } } }
+  });
+
+  // 10. Acesso a serviços
+  new Chart('acesso', {
+    type: 'bar',
+    data: {
+      labels: ['Alta Renda','Renda Média-Alta','Renda Média-Baixa','Baixa Renda'],
+      datasets: [
+        { label:'Diagnóstico disponível', data:[80,45,20,5], backgroundColor:'#4f46e5', borderRadius:6 },
+        { label:'Terapia acessível', data:[55,25,8,2], backgroundColor:'#0d9488', borderRadius:6 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{...leg, position:'bottom'}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% dos casos` } } },
+      scales: { y:{max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'}}, x:{grid:{display:false}} }
+    }
+  });
+
+  // 11. Subdiagnóstico
+  new Chart('subdiag', {
+    type: 'bar',
+    data: {
+      labels: ['Alta Renda','Renda Média','Baixa Renda'],
+      datasets: [
+        { label:'Diagnosticados (%)', data:[40,15,5], backgroundColor:'#4f46e5', borderRadius:8 },
+        { label:'Sem diagnóstico (%)', data:[60,85,95], backgroundColor:'#fecaca', borderRadius:8 }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x:{stacked:true, grid:{display:false}},
+        y:{stacked:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'}}
+      },
+      plugins: { legend:{...leg, position:'bottom'} }
+    }
+  });
+
+  /* ═══════════════════════════════
+     BRAZIL CHARTS
+  ═══════════════════════════════ */
+
+  // 12. Brasil — Faixa etária
+  new Chart('brIdade', {
+    type: 'bar',
+    data: {
+      labels: ['0–4 anos','5–9 anos','10–14 anos','15–19 anos','20–29 anos','30+ anos'],
+      datasets: [{
+        label: '% com diagnóstico TEA',
+        data: [2.1, 2.6, 1.9, 1.3, 0.9, 0.8],
+        backgroundColor: c => {
+          const colors = ['#007a2e','#003d8f','#007a2e','#0d9488','#d97706','#94a3b8'];
+          return colors[c.dataIndex];
+        },
+        borderRadius: 9, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% da faixa etária` } } },
+      scales: {
+        y:{ max:3, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+        x:{ grid:{display:false} }
+      }
+    }
+  });
+
+  // 13. Brasil — Sexo 5-9 anos
+  new Chart('brSexo', {
+    type: 'doughnut',
+    data: {
+      labels: ['Meninos 5–9 anos (3,8%)', 'Meninas 5–9 anos (1,3%)'],
+      datasets: [{ data:[264000, 86000], backgroundColor:['#003d8f','#f472b6'], borderWidth:0, hoverOffset:10 }]
+    },
+    options: {
+      cutout:'65%',
+      plugins: {
+        legend:{...leg, position:'bottom'},
+        tooltip:{ callbacks:{ label: c => ` ${(c.raw/1000).toFixed(0)}k crianças (${c.label.match(/[\d.]+%/)[0]})` } }
+      }
+    }
+  });
+
+  // 14. Brasil — Raça
+  new Chart('brRaca', {
+    type: 'bar',
+    data: {
+      labels: ['Branca','Preta','Indígena','Parda','Amarela'],
+      datasets: [{
+        data: [1.3, 1.1, 0.9, 1.1, 1.0],
+        backgroundColor: ['#003d8f','#007a2e','#d97706','#7c3aed','#0d9488'],
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% do grupo` } } },
+      scales: {
+        y:{ max:2, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+        x:{ grid:{display:false} }
+      }
+    }
+  });
+
+  // 15. Brasil — Região
+  new Chart('brRegiao', {
+    type: 'bar',
+    data: {
+      labels: ['Sul','Sudeste','Norte','Nordeste','Centro-Oeste'],
+      datasets: [{
+        data: [1.2, 1.2, 1.2, 1.2, 1.1],
+        backgroundColor: ['#003d8f','#007a2e','#d97706','#7c3aed','#0d9488'],
+        borderRadius: 8, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% da região` } } },
+      scales: {
+        y:{ min:0.9, max:1.4, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+        x:{ grid:{display:false} }
+      }
+    }
+  });
+
+  // 16. Brasil vs. Mundo
+  new Chart('brVsMundo', {
+    type: 'bar',
+    data: {
+      labels: ['Singapura','EUA','Chile','Argentina','Uruguai','Média Global','Colômbia','Equador','Brasil','Bangladesh'],
+      datasets: [{
+        data: [1458, 1050, 1057, 1027, 1013, 843, 763, 686, 606, 588],
+        backgroundColor: c => c.label === 'Brasil' ? '#007a2e' : c.label === 'Média Global' ? '#e11d48' : c.raw >= 1000 ? '#4f46e5' : '#94a3b8',
+        borderRadius: 7, borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis:'y', responsive:true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw.toLocaleString('pt-BR')} por 100k` } } },
+      scales: { x:{grid:{color:'#f1f5f9'}}, y:{grid:{display:false}} }
+    }
+  });
+
+  // 17. Escolarização
+  new Chart('brEscola', {
+    type: 'doughnut',
+    data: {
+      labels: ['Escola Regular (66,8%)', 'Escola Especial / Outros (33,2%)'],
+      datasets: [{ data:[508000, 252800], backgroundColor:['#007a2e','#94a3b8'], borderWidth:0, hoverOffset:10 }]
+    },
+    options: {
+      cutout:'65%',
+      plugins: {
+        legend:{...leg, position:'bottom'},
+        tooltip:{ callbacks:{ label: c => ` ${(c.raw/1000).toFixed(0)}k alunos` } }
+      }
+    }
+  });
+
+  // 18. Diagnóstico vs. Estimativa
+  new Chart('brDiagVsReal', {
+    type: 'bar',
+    data: {
+      labels: ['Diagnósticos\nOficiais (IBGE)', 'Estimativa\n(CDC rate)', 'Estimativa\n(máxima)'],
+      datasets: [{
+        data: [2.4, 6.9, 5.0],
+        backgroundColor: ['#007a2e','#d97706','#003d8f'],
+        borderRadius: 9, borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}M de pessoas` } } },
+      scales: {
+        y:{ title:{display:true, text:'Milhões de pessoas'}, grid:{color:'#f1f5f9'} },
+        x:{ grid:{display:false}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  // 19. Sexo × faixa etária BR
+  new Chart('brSexoIdade', {
+    type: 'bar',
+    data: {
+      labels: ['0–4','5–9','10–14','15–19','20+'],
+      datasets: [
+        { label:'Masculino (%)', data:[2.7, 3.8, 2.5, 1.8, 1.1], backgroundColor:'#003d8f', borderRadius:7 },
+        { label:'Feminino (%)',  data:[1.5, 1.3, 1.2, 0.8, 0.7], backgroundColor:'#f472b6', borderRadius:7 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend:{...leg, position:'bottom'}, tooltip:{ callbacks:{ label: c => ` ${c.raw}%` } } },
+      scales: {
+        y:{ max:5, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+        x:{ grid:{display:false} }
+      }
+    }
+  });
+</script>
+</body>
+</html>
