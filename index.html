@@ -819,6 +819,316 @@
       }
     }
   });
+
+  // TO Chart
+  new Chart('toMelhora', {
+    type: 'bar',
+    data: {
+      labels: ['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
+      datasets: [{
+        label: 'Melhora após 10 sessões (%)',
+        data: [91.5, 92.2, 89.3, 90.7, 88.5, 90.6],
+        backgroundColor: ['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'],
+        borderRadius: 9, borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% de melhora` } } },
+      scales: {
+        x:{ min:80, max:95, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+        y:{ grid:{display:false} }
+      }
+    }
+  });
 </script>
+
+<!-- ════════════════════════════════════════════
+     SEÇÃO: TERAPIA OCUPACIONAL
+════════════════════════════════════════════ -->
+<section id="terapia-ocupacional">
+<style>
+  /* TO section */
+  .to-section { background: #0c1445; color: #fff; padding: 72px 0 0; }
+  .to-wrap { max-width: 1100px; margin: 0 auto; padding: 0 60px 72px; }
+  .to-hero { text-align: center; margin-bottom: 60px; }
+  .to-hero .to-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(14,165,233,.2); border: 1px solid rgba(14,165,233,.35);
+    border-radius: 999px; padding: 6px 18px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: #7dd3fc; margin-bottom: 20px;
+  }
+  .to-hero h2 { font-size: 38px; font-weight: 900; letter-spacing: -.8px; line-height: 1.2; margin-bottom: 16px; }
+  .to-hero h2 span { color: #38bdf8; }
+  .to-hero p { font-size: 16px; opacity: .8; max-width: 640px; margin: 0 auto; line-height: 1.75; }
+
+  /* Stats strip */
+  .to-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.08); margin: 48px 0; border-radius: 16px; overflow: hidden; }
+  .to-stat { background: rgba(255,255,255,.04); padding: 28px 22px; text-align: center; }
+  .to-stat .ts-val { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; color: #38bdf8; line-height: 1; }
+  .to-stat .ts-lbl { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; margin-top: 6px; line-height: 1.4; }
+
+  /* Areas grid */
+  .to-areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 48px 0; }
+  .to-area {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 24px 22px;
+    transition: background .2s;
+  }
+  .to-area:hover { background: rgba(255,255,255,.09); }
+  .to-area .ta-icon { font-size: 32px; margin-bottom: 12px; }
+  .to-area .ta-title { font-size: 15px; font-weight: 800; margin-bottom: 8px; color: #e2e8f0; }
+  .to-area .ta-text { font-size: 13px; color: #94a3b8; line-height: 1.7; }
+
+  /* Chart card */
+  .to-chart-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px; padding: 28px 30px; margin: 48px 0;
+  }
+  .to-chart-card .tcc-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; color: #e2e8f0; }
+  .to-chart-card .tcc-sub { font-size: 12.5px; color: #64748b; margin-bottom: 22px; line-height: 1.5; }
+  .to-chart-card canvas { max-height: 280px; }
+
+  /* Quote */
+  .to-quote {
+    background: linear-gradient(135deg, rgba(14,165,233,.15), rgba(124,58,237,.1));
+    border-left: 4px solid #38bdf8;
+    border-radius: 0 14px 14px 0;
+    padding: 26px 28px; margin: 48px 0;
+  }
+  .to-quote p { font-size: 16.5px; font-style: italic; line-height: 1.75; color: #e2e8f0; margin-bottom: 8px; }
+  .to-quote cite { font-size: 12px; color: #64748b; font-style: normal; font-weight: 600; }
+
+  /* Timeline */
+  .to-timeline { margin: 48px 0; }
+  .to-timeline h3 { font-size: 20px; font-weight: 800; color: #e2e8f0; margin-bottom: 28px; }
+  .tl-list { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 20px; position: relative; padding-bottom: 28px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item:last-child .tl-line { display: none; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 44px; }
+  .tl-dot { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .tl-line { width: 2px; flex: 1; background: rgba(255,255,255,.1); margin-top: 4px; min-height: 20px; }
+  .tl-body { padding-top: 8px; }
+  .tl-period { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #38bdf8; margin-bottom: 4px; }
+  .tl-title { font-size: 15px; font-weight: 800; color: #e2e8f0; margin-bottom: 5px; }
+  .tl-desc { font-size: 13px; color: #94a3b8; line-height: 1.65; }
+
+  /* Parents box */
+  .to-parents {
+    background: linear-gradient(135deg, #003d8f 0%, #0369a1 100%);
+    border-radius: 16px; padding: 36px 34px; margin: 48px 0;
+    display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start;
+  }
+  .to-parents .tp-icon { font-size: 48px; }
+  .to-parents h3 { font-size: 20px; font-weight: 900; margin-bottom: 10px; color: #fff; }
+  .to-parents p { font-size: 14px; color: #bae6fd; line-height: 1.75; }
+  .to-parents ul { margin-top: 12px; padding-left: 18px; }
+  .to-parents ul li { font-size: 13.5px; color: #bae6fd; line-height: 1.8; }
+
+  /* CTA */
+  .to-cta { text-align: center; padding: 48px 0 0; border-top: 1px solid rgba(255,255,255,.08); }
+  .to-cta p { font-size: 20px; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; }
+  .to-cta .cta-sub { font-size: 14px; color: #64748b; margin-bottom: 0; font-weight: 400; }
+
+  /* Source line */
+  .to-source { font-size: 11px; color: #475569; text-align: center; padding: 20px 60px 28px; background: #0c1445; border-top: 1px solid rgba(255,255,255,.06); }
+
+  @media(max-width:960px){
+    .to-wrap { padding: 0 20px 56px; }
+    .to-stats { grid-template-columns: 1fr 1fr; }
+    .to-areas { grid-template-columns: 1fr; }
+    .to-parents { grid-template-columns: 1fr; }
+    .to-hero h2 { font-size: 28px; }
+  }
+</style>
+
+<div class="to-section">
+<div class="to-wrap">
+
+  <!-- HERO -->
+  <div class="to-hero">
+    <div class="to-tag">🩵 Mês do Autismo · Semana Azul</div>
+    <h2>Por que a <span>Terapia Ocupacional</span><br>faz diferença na vida de quem tem TEA?</h2>
+    <p>Para famílias que acabaram de receber um diagnóstico — ou que já estão nessa jornada há anos — entender o papel do terapeuta ocupacional pode mudar o rumo do tratamento e a qualidade de vida de toda a família.</p>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="to-stats">
+    <div class="to-stat">
+      <div class="ts-val">90,6%</div>
+      <div class="ts-lbl">de melhora geral após 10 sessões de TO</div>
+    </div>
+    <div class="to-stat">
+      <div class="ts-val">92,2%</div>
+      <div class="ts-lbl">de melhora em habilidades de relacionamento</div>
+    </div>
+    <div class="to-stat">
+      <div class="ts-val">91,5%</div>
+      <div class="ts-lbl">de melhora no processamento sensorial</div>
+    </div>
+    <div class="to-stat">
+      <div class="ts-val">28</div>
+      <div class="ts-lbl">intervenções com evidência científica reconhecida no TEA</div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="to-quote">
+    <p>"O terapeuta ocupacional não ensina a criança a ser diferente — ele a ajuda a se tornar mais ela mesma, com mais autonomia, mais confiança e mais presença no mundo."</p>
+    <cite>— Perspectiva clínica em Terapia Ocupacional Pediátrica</cite>
+  </div>
+
+  <!-- O QUE É TO -->
+  <div style="margin-bottom:48px">
+    <h3 style="font-size:22px;font-weight:900;color:#e2e8f0;margin-bottom:16px">O que faz um Terapeuta Ocupacional?</h3>
+    <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">
+      O Terapeuta Ocupacional (TO) é o profissional de saúde especializado em ajudar pessoas a realizarem as <strong style="color:#e2e8f0">atividades do dia a dia</strong> — chamadas de "ocupações" — com mais independência e qualidade.
+      No contexto do TEA, a atuação vai muito além do consultório: envolve o lar, a escola, o brincar, as refeições, o sono, a socialização.
+      A base do trabalho é entender <strong style="color:#e2e8f0">como aquela criança ou adulto específico percebe e processa o mundo</strong> — e a partir daí, construir pontes entre as suas capacidades e os desafios que enfrenta.
+    </p>
+  </div>
+
+  <!-- ÁREAS -->
+  <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:20px">Áreas de atuação da Terapia Ocupacional no TEA</h3>
+  <div class="to-areas">
+    <div class="to-area">
+      <div class="ta-icon">🧠</div>
+      <div class="ta-title">Integração Sensorial</div>
+      <div class="ta-text">Muitas pessoas com TEA têm hipersensibilidade ou hipossensibilidade a sons, texturas, luzes e toque. A TO usa técnicas de Integração Sensorial de Ayres — reconhecida pela OMS — para ajudar o sistema nervoso a processar estímulos de forma mais equilibrada, reduzindo crises e aumentando a tolerância ao ambiente.</div>
+    </div>
+    <div class="to-area">
+      <div class="ta-icon">✋</div>
+      <div class="ta-title">Habilidades Motoras</div>
+      <div class="ta-text">Desenvolvimento da coordenação motora fina (segurar lápis, abotoar, usar talheres) e da motricidade ampla (equilíbrio, postura, correr). Essas habilidades impactam diretamente a inclusão escolar, a independência e a autoestima da criança.</div>
+    </div>
+    <div class="to-area">
+      <div class="ta-icon">🏠</div>
+      <div class="ta-title">Atividades de Vida Diária</div>
+      <div class="ta-text">Higiene pessoal, alimentação, vestuário, rotina de sono. O TO trabalha para que a criança ou adulto com TEA conquiste autonomia nas tarefas cotidianas — reduzindo a dependência dos cuidadores e aumentando a dignidade e a qualidade de vida.</div>
+    </div>
+    <div class="to-area">
+      <div class="ta-icon">🤝</div>
+      <div class="ta-title">Habilidades Sociais e de Comunicação</div>
+      <div class="ta-text">Através do brincar estruturado, jogos e interações guiadas, o TO estimula o contato visual, a vez de falar, a leitura de expressões faciais e a compreensão de contextos sociais — base para relacionamentos mais ricos e uma vida mais conectada.</div>
+    </div>
+    <div class="to-area">
+      <div class="ta-icon">📚</div>
+      <div class="ta-title">Desempenho Escolar</div>
+      <div class="ta-text">O TO identifica barreiras para a aprendizagem e propõe adaptações. Isso inclui estratégias de atenção e concentração, adaptações de escrita, organização do ambiente escolar e orientação para professores — garantindo que o aluno possa participar ativamente.</div>
+    </div>
+    <div class="to-area">
+      <div class="ta-icon">💚</div>
+      <div class="ta-title">Regulação Emocional</div>
+      <div class="ta-text">Ansiedade, crises sensoriais, dificuldade de lidar com mudanças de rotina — o TO ensina ferramentas concretas de autorregulação. Com base na abordagem cognitiva e sensorial, a pessoa aprende a reconhecer e gerenciar seus estados internos com mais eficiência.</div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO EVIDÊNCIAS -->
+  <div class="to-chart-card">
+    <div class="tcc-title">Evidência Científica: Melhora por domínio após 10 sessões de TO</div>
+    <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · Publicado no PMC/NCBI 2024</div>
+    <canvas id="toMelhora"></canvas>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="to-timeline">
+    <h3>O que esperar ao longo do tratamento?</h3>
+    <div class="tl-list">
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot" style="background:rgba(14,165,233,.2)">🔍</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-period">1ª a 3ª Sessão</div>
+          <div class="tl-title">Avaliação e Vínculo</div>
+          <div class="tl-desc">O terapeuta realiza uma avaliação completa: perfil sensorial, habilidades motoras, comunicação, rotina e contexto familiar. O objetivo é entender a criança como um todo — sem pressa, sem julgamento. O vínculo terapêutico começa aqui.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot" style="background:rgba(13,148,136,.2)">🎯</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-period">1º Mês</div>
+          <div class="tl-title">Primeiros Resultados Sensoriais</div>
+          <div class="tl-desc">Redução de hipersensibilidade a estímulos específicos. A criança começa a tolerar melhor texturas, sons e ambientes. Pais relatam crises menos frequentes e maior tranquilidade nas rotinas.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot" style="background:rgba(124,58,237,.2)">🌱</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-period">2º ao 3º Mês</div>
+          <div class="tl-title">Autonomia nas Atividades Diárias</div>
+          <div class="tl-desc">Progressos visíveis em alimentação, higiene e vestuário. Melhora na coordenação motora fina (segurar talheres, lápis). Estudos mostram melhora de até 90,7% em habilidades sociais e autocuidado nesse período.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot" style="background:rgba(22,163,74,.2)">🤝</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-period">4º ao 6º Mês</div>
+          <div class="tl-title">Habilidades Sociais e Comunicação</div>
+          <div class="tl-desc">Maior engajamento social, contato visual mais presente, início de interações espontâneas com outras crianças. Melhora no desempenho escolar e na relação com professores.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-period">A longo prazo</div>
+          <div class="tl-title">Qualidade de Vida e Independência</div>
+          <div class="tl-desc">Com acompanhamento contínuo, pessoas com TEA desenvolvem maior autonomia, autoestima e capacidade de participar plenamente da vida escolar, familiar e social — com reflexos positivos em toda a família.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARA OS PAIS -->
+  <div class="to-parents">
+    <div class="tp-icon">👨‍👩‍👧</div>
+    <div>
+      <h3>Uma mensagem para as famílias</h3>
+      <p>Receber o diagnóstico de TEA pode ser ao mesmo tempo um alívio e um peso. Saber o que o filho tem abre portas — mas também levanta muitas dúvidas sobre o futuro.</p>
+      <p style="margin-top:10px">A Terapia Ocupacional não promete "curar" o autismo — porque o autismo não é uma doença a ser curada. Ela promete algo muito mais valioso:</p>
+      <ul>
+        <li>Ajudar seu filho a <strong>viver com mais conforto</strong> no próprio corpo e no mundo</li>
+        <li>Conquistar <strong>mais independência</strong> nas tarefas do dia a dia</li>
+        <li>Desenvolver <strong>ferramentas para se comunicar</strong> e se relacionar</li>
+        <li>Reduzir crises, <strong>ansiedade e sobrecarga sensorial</strong></li>
+        <li>Fortalecer a <strong>autoestima e a confiança</strong> de quem é — do jeito que é</li>
+      </ul>
+      <p style="margin-top:12px;font-size:13px">E um detalhe importante: <strong>quanto mais cedo o acompanhamento começa, maiores são os ganhos</strong>. O cérebro da criança pequena tem uma plasticidade enorme — e a TO sabe exatamente como aproveitá-la.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="to-cta">
+    <p>🩵 Cuide de quem você ama com informação e acompanhamento especializado.</p>
+    <p class="cta-sub">Este painel foi desenvolvido para o Mês do Autismo — Semana Azul · Abril 2025</p>
+  </div>
+
+</div><!-- /to-wrap -->
+</div><!-- /to-section -->
+
+<div class="to-source">
+  <strong>Referências da seção Terapia Ocupacional:</strong>
+  Abubakar A. et al., "Evaluating the Benefits of Occupational Therapy in Children with ASD Using the Autism Behavior Checklist", PMC/NCBI 2024 (PMC11302171) ·
+  OMS — 28 intervenções com evidência estabelecida para TEA ·
+  Conselho Federal de Fisioterapia e Terapia Ocupacional — Integração Sensorial de Ayres como prática baseada em evidências ·
+  Autismo e Realidade, Neuroconecta.com.br · Clínica Neurogandolfi.
+</div>
+</section>
 </body>
 </html>
