@@ -844,14 +844,16 @@
 </script>
 
 <!-- ════════════════════════════════════════════
-     SEÇÃO: TERAPIA OCUPACIONAL
+     SEÇÃO: EQUIPE MULTIDISCIPLINAR
 ════════════════════════════════════════════ -->
-<section id="terapia-ocupacional">
+<section id="equipe-multidisciplinar">
 <style>
-  /* TO section */
+  /* Section base */
   .to-section { background: #0c1445; color: #fff; padding: 72px 0 0; }
   .to-wrap { max-width: 1100px; margin: 0 auto; padding: 0 60px 72px; }
-  .to-hero { text-align: center; margin-bottom: 60px; }
+
+  /* Hero */
+  .to-hero { text-align: center; margin-bottom: 52px; }
   .to-hero .to-tag {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(14,165,233,.2); border: 1px solid rgba(14,165,233,.35);
@@ -861,16 +863,46 @@
   }
   .to-hero h2 { font-size: 38px; font-weight: 900; letter-spacing: -.8px; line-height: 1.2; margin-bottom: 16px; }
   .to-hero h2 span { color: #38bdf8; }
-  .to-hero p { font-size: 16px; opacity: .8; max-width: 640px; margin: 0 auto; line-height: 1.75; }
+  .to-hero p { font-size: 16px; opacity: .8; max-width: 680px; margin: 0 auto; line-height: 1.75; }
+
+  /* TAB NAV */
+  .tab-nav {
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 48px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px; padding: 8px;
+  }
+  .tab-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 700; letter-spacing: .3px;
+    background: transparent; color: #64748b;
+    transition: background .2s, color .2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,.07); color: #cbd5e1; }
+  .tab-btn.active { background: var(--tc); color: #fff; }
+  .tab-btn .tb-icon { font-size: 16px; }
+
+  /* TAB PANELS */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Panel header */
+  .panel-hero { margin-bottom: 40px; }
+  .panel-hero h3 { font-size: 28px; font-weight: 900; letter-spacing: -.5px; line-height: 1.25; margin-bottom: 10px; }
+  .panel-hero h3 span { color: var(--tc-light, #38bdf8); }
+  .panel-hero p { font-size: 15px; color: #94a3b8; line-height: 1.75; max-width: 820px; }
 
   /* Stats strip */
-  .to-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.08); margin: 48px 0; border-radius: 16px; overflow: hidden; }
+  .to-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.08); margin: 40px 0; border-radius: 16px; overflow: hidden; }
   .to-stat { background: rgba(255,255,255,.04); padding: 28px 22px; text-align: center; }
-  .to-stat .ts-val { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; color: #38bdf8; line-height: 1; }
+  .to-stat .ts-val { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; color: var(--tc-light, #38bdf8); line-height: 1; }
   .to-stat .ts-lbl { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; margin-top: 6px; line-height: 1.4; }
 
   /* Areas grid */
-  .to-areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 48px 0; }
+  .to-areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
   .to-area {
     background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.08);
@@ -886,7 +918,7 @@
   .to-chart-card {
     background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px; padding: 28px 30px; margin: 48px 0;
+    border-radius: 16px; padding: 28px 30px; margin: 40px 0;
   }
   .to-chart-card .tcc-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; color: #e2e8f0; }
   .to-chart-card .tcc-sub { font-size: 12.5px; color: #64748b; margin-bottom: 22px; line-height: 1.5; }
@@ -894,16 +926,16 @@
 
   /* Quote */
   .to-quote {
-    background: linear-gradient(135deg, rgba(14,165,233,.15), rgba(124,58,237,.1));
-    border-left: 4px solid #38bdf8;
+    border-left: 4px solid var(--tc-light, #38bdf8);
+    background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     border-radius: 0 14px 14px 0;
-    padding: 26px 28px; margin: 48px 0;
+    padding: 26px 28px; margin: 40px 0;
   }
-  .to-quote p { font-size: 16.5px; font-style: italic; line-height: 1.75; color: #e2e8f0; margin-bottom: 8px; }
+  .to-quote p { font-size: 16px; font-style: italic; line-height: 1.8; color: #e2e8f0; margin-bottom: 8px; }
   .to-quote cite { font-size: 12px; color: #64748b; font-style: normal; font-weight: 600; }
 
   /* Timeline */
-  .to-timeline { margin: 48px 0; }
+  .to-timeline { margin: 40px 0; }
   .to-timeline h3 { font-size: 20px; font-weight: 800; color: #e2e8f0; margin-bottom: 28px; }
   .tl-list { display: flex; flex-direction: column; gap: 0; }
   .tl-item { display: flex; gap: 20px; position: relative; padding-bottom: 28px; }
@@ -913,48 +945,29 @@
   .tl-dot { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
   .tl-line { width: 2px; flex: 1; background: rgba(255,255,255,.1); margin-top: 4px; min-height: 20px; }
   .tl-body { padding-top: 8px; }
-  .tl-period { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #38bdf8; margin-bottom: 4px; }
+  .tl-period { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--tc-light, #38bdf8); margin-bottom: 4px; }
   .tl-title { font-size: 15px; font-weight: 800; color: #e2e8f0; margin-bottom: 5px; }
   .tl-desc { font-size: 13px; color: #94a3b8; line-height: 1.65; }
 
   /* Parents box */
   .to-parents {
-    background: linear-gradient(135deg, #003d8f 0%, #0369a1 100%);
-    border-radius: 16px; padding: 36px 34px; margin: 48px 0;
+    background: linear-gradient(135deg, var(--tc-dark, #003d8f) 0%, var(--tc-mid, #0369a1) 100%);
+    border-radius: 16px; padding: 36px 34px; margin: 40px 0;
     display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start;
   }
   .to-parents .tp-icon { font-size: 48px; }
   .to-parents h3 { font-size: 20px; font-weight: 900; margin-bottom: 10px; color: #fff; }
-  .to-parents p { font-size: 14px; color: #bae6fd; line-height: 1.75; }
+  .to-parents p { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.75; }
   .to-parents ul { margin-top: 12px; padding-left: 18px; }
-  .to-parents ul li { font-size: 13.5px; color: #bae6fd; line-height: 1.8; }
+  .to-parents ul li { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.8; }
 
   /* CTA */
-  .to-cta { text-align: center; padding: 48px 0 0; border-top: 1px solid rgba(255,255,255,.08); }
+  .to-cta { text-align: center; padding: 48px 0 0; border-top: 1px solid rgba(255,255,255,.08); margin-top: 48px; }
   .to-cta p { font-size: 20px; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; }
   .to-cta .cta-sub { font-size: 14px; color: #64748b; margin-bottom: 0; font-weight: 400; }
 
   /* Source line */
-  .to-source { font-size: 11px; color: #475569; text-align: center; padding: 20px 60px 28px; background: #0c1445; border-top: 1px solid rgba(255,255,255,.06); }
-
-  /* Multidisciplinary section */
-  .multi-section { margin: 64px 0 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 56px; }
-  .multi-title { font-size: 26px; font-weight: 900; color: #e2e8f0; margin-bottom: 12px; text-align: center; }
-  .multi-sub { font-size: 14.5px; color: #94a3b8; text-align: center; max-width: 700px; margin: 0 auto 40px; line-height: 1.75; }
-  .multi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .multi-card {
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.08);
-    border-top: 3px solid var(--mc);
-    border-radius: 14px; padding: 24px 22px;
-    transition: background .2s;
-  }
-  .multi-card:hover { background: rgba(255,255,255,.08); }
-  .multi-card .mc-icon { font-size: 32px; margin-bottom: 12px; }
-  .multi-card .mc-title { font-size: 17px; font-weight: 900; margin-bottom: 10px; color: #e2e8f0; }
-  .multi-card .mc-desc { font-size: 13px; color: #94a3b8; line-height: 1.7; margin-bottom: 14px; }
-  .multi-card .mc-list { padding-left: 16px; margin: 0; }
-  .multi-card .mc-list li { font-size: 12.5px; color: #7dd3fc; line-height: 1.75; }
+  .to-source { font-size: 11px; color: #475569; text-align: center; padding: 20px 60px 28px; background: #0c1445; border-top: 1px solid rgba(255,255,255,.06); line-height: 1.7; }
 
   @media(max-width:960px){
     .to-wrap { padding: 0 20px 56px; }
@@ -962,245 +975,443 @@
     .to-areas { grid-template-columns: 1fr; }
     .to-parents { grid-template-columns: 1fr; }
     .to-hero h2 { font-size: 28px; }
-    .multi-grid { grid-template-columns: 1fr; }
+    .tab-btn { font-size: 12px; padding: 8px 14px; }
   }
 </style>
 
 <div class="to-section">
 <div class="to-wrap">
 
-  <!-- HERO -->
+  <!-- HERO GERAL -->
   <div class="to-hero">
     <div class="to-tag">🩵 Abril Azul · Mês de Conscientização sobre Autismo</div>
-    <h2>Por que a <span>Terapia Ocupacional</span><br>faz diferença na vida de quem tem TEA?</h2>
-    <p>Para famílias que acabaram de receber um diagnóstico — ou que já estão nessa jornada há anos — entender o papel do terapeuta ocupacional pode mudar o rumo do tratamento e a qualidade de vida de toda a família.</p>
+    <h2>A <span>Equipe Multidisciplinar</span><br>faz diferença na vida de quem tem TEA</h2>
+    <p>O tratamento do autismo é mais eficaz quando conduzido por profissionais que trabalham de forma integrada. Conheça o papel de cada especialidade e o impacto que ela gera na vida de quem tem TEA e de toda a família.</p>
   </div>
 
-  <!-- STATS STRIP -->
-  <div class="to-stats">
-    <div class="to-stat">
-      <div class="ts-val">90,6%</div>
-      <div class="ts-lbl">de melhora geral após 10 sessões de TO</div>
-    </div>
-    <div class="to-stat">
-      <div class="ts-val">92,2%</div>
-      <div class="ts-lbl">de melhora em habilidades de relacionamento</div>
-    </div>
-    <div class="to-stat">
-      <div class="ts-val">91,5%</div>
-      <div class="ts-lbl">de melhora no processamento sensorial</div>
-    </div>
-    <div class="to-stat">
-      <div class="ts-val">28</div>
-      <div class="ts-lbl">intervenções com evidência científica reconhecida no TEA</div>
-    </div>
+  <!-- NAVEGAÇÃO POR ABAS -->
+  <div class="tab-nav" role="tablist">
+    <button class="tab-btn active" style="--tc:#0ea5e9" data-tab="tab-to" role="tab"><span class="tb-icon">🖐️</span> Terapia Ocupacional</button>
+    <button class="tab-btn" style="--tc:#7c3aed" data-tab="tab-psico" role="tab"><span class="tb-icon">🧩</span> Psicologia</button>
+    <button class="tab-btn" style="--tc:#0d9488" data-tab="tab-fono" role="tab"><span class="tb-icon">🗣️</span> Fonoaudiologia</button>
+    <button class="tab-btn" style="--tc:#0369a1" data-tab="tab-fisio" role="tab"><span class="tb-icon">🏃</span> Fisioterapia</button>
+    <button class="tab-btn" style="--tc:#d97706" data-tab="tab-psicoped" role="tab"><span class="tb-icon">📖</span> Psicopedagogia</button>
+    <button class="tab-btn" style="--tc:#16a34a" data-tab="tab-nutri" role="tab"><span class="tb-icon">🥗</span> Nutricionista</button>
   </div>
 
-  <!-- QUOTE -->
-  <div class="to-quote">
-    <p>"O terapeuta ocupacional não ensina a criança a ser diferente — ele a ajuda a se tornar mais ela mesma, com mais autonomia, mais confiança e mais presença no mundo."</p>
-    <cite>— Perspectiva clínica em Terapia Ocupacional Pediátrica</cite>
-  </div>
+  <!-- ══ ABA 1: TERAPIA OCUPACIONAL ══ -->
+  <div class="tab-panel active" id="tab-to" style="--tc:#0ea5e9;--tc-light:#38bdf8;--tc-dark:#003d8f;--tc-mid:#0369a1">
 
-  <!-- O QUE É TO -->
-  <div style="margin-bottom:48px">
-    <h3 style="font-size:22px;font-weight:900;color:#e2e8f0;margin-bottom:16px">O que faz um Terapeuta Ocupacional?</h3>
-    <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">
-      O Terapeuta Ocupacional (TO) é o profissional de saúde especializado em ajudar pessoas a realizarem as <strong style="color:#e2e8f0">atividades do dia a dia</strong> — chamadas de "ocupações" — com mais independência e qualidade.
-      No contexto do TEA, a atuação vai muito além do consultório: envolve o lar, a escola, o brincar, as refeições, o sono, a socialização.
-      A base do trabalho é entender <strong style="color:#e2e8f0">como aquela criança ou adulto específico percebe e processa o mundo</strong> — e a partir daí, construir pontes entre as suas capacidades e os desafios que enfrenta.
-    </p>
-  </div>
+    <div class="panel-hero">
+      <h3>Por que a <span>Terapia Ocupacional</span> faz diferença?</h3>
+      <p>Para famílias que acabaram de receber um diagnóstico — ou que já estão nessa jornada há anos — entender o papel do terapeuta ocupacional pode mudar o rumo do tratamento e a qualidade de vida de toda a família.</p>
+    </div>
 
-  <!-- ÁREAS -->
-  <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:20px">Áreas de atuação da Terapia Ocupacional no TEA</h3>
-  <div class="to-areas">
-    <div class="to-area">
-      <div class="ta-icon">🧠</div>
-      <div class="ta-title">Integração Sensorial</div>
-      <div class="ta-text">Muitas pessoas com TEA têm hipersensibilidade ou hipossensibilidade a sons, texturas, luzes e toque. A TO usa técnicas de Integração Sensorial de Ayres — reconhecida pela OMS — para ajudar o sistema nervoso a processar estímulos de forma mais equilibrada, reduzindo crises e aumentando a tolerância ao ambiente.</div>
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">90,6%</div><div class="ts-lbl">de melhora geral após 10 sessões de TO</div></div>
+      <div class="to-stat"><div class="ts-val">92,2%</div><div class="ts-lbl">de melhora em habilidades de relacionamento</div></div>
+      <div class="to-stat"><div class="ts-val">91,5%</div><div class="ts-lbl">de melhora no processamento sensorial</div></div>
+      <div class="to-stat"><div class="ts-val">28</div><div class="ts-lbl">intervenções com evidência científica reconhecida no TEA</div></div>
     </div>
-    <div class="to-area">
-      <div class="ta-icon">✋</div>
-      <div class="ta-title">Habilidades Motoras</div>
-      <div class="ta-text">Desenvolvimento da coordenação motora fina (segurar lápis, abotoar, usar talheres) e da motricidade ampla (equilíbrio, postura, correr). Essas habilidades impactam diretamente a inclusão escolar, a independência e a autoestima da criança.</div>
-    </div>
-    <div class="to-area">
-      <div class="ta-icon">🏠</div>
-      <div class="ta-title">Atividades de Vida Diária</div>
-      <div class="ta-text">Higiene pessoal, alimentação, vestuário, rotina de sono. O TO trabalha para que a criança ou adulto com TEA conquiste autonomia nas tarefas cotidianas — reduzindo a dependência dos cuidadores e aumentando a dignidade e a qualidade de vida.</div>
-    </div>
-    <div class="to-area">
-      <div class="ta-icon">🤝</div>
-      <div class="ta-title">Habilidades Sociais e de Comunicação</div>
-      <div class="ta-text">Através do brincar estruturado, jogos e interações guiadas, o TO estimula o contato visual, a vez de falar, a leitura de expressões faciais e a compreensão de contextos sociais — base para relacionamentos mais ricos e uma vida mais conectada.</div>
-    </div>
-    <div class="to-area">
-      <div class="ta-icon">📚</div>
-      <div class="ta-title">Desempenho Escolar</div>
-      <div class="ta-text">O TO identifica barreiras para a aprendizagem e propõe adaptações. Isso inclui estratégias de atenção e concentração, adaptações de escrita, organização do ambiente escolar e orientação para professores — garantindo que o aluno possa participar ativamente.</div>
-    </div>
-    <div class="to-area">
-      <div class="ta-icon">💚</div>
-      <div class="ta-title">Regulação Emocional</div>
-      <div class="ta-text">Ansiedade, crises sensoriais, dificuldade de lidar com mudanças de rotina — o TO ensina ferramentas concretas de autorregulação. Com base na abordagem cognitiva e sensorial, a pessoa aprende a reconhecer e gerenciar seus estados internos com mais eficiência.</div>
-    </div>
-  </div>
 
-  <!-- GRÁFICO EVIDÊNCIAS -->
-  <div class="to-chart-card">
-    <div class="tcc-title">Evidência Científica: Melhora por domínio após 10 sessões de TO</div>
-    <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · Publicado no PMC/NCBI 2024</div>
-    <canvas id="toMelhora"></canvas>
-  </div>
+    <div class="to-quote">
+      <p>"O terapeuta ocupacional não ensina a criança a ser diferente — ele a ajuda a se tornar mais ela mesma, com mais autonomia, mais confiança e mais presença no mundo."</p>
+      <cite>— Perspectiva clínica em Terapia Ocupacional Pediátrica</cite>
+    </div>
 
-  <!-- TIMELINE -->
-  <div class="to-timeline">
-    <h3>O que esperar ao longo do tratamento?</h3>
-    <div class="tl-list">
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot" style="background:rgba(14,165,233,.2)">🔍</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-period">1ª a 5ª Sessão</div>
-          <div class="tl-title">Avaliação e Vínculo</div>
-          <div class="tl-desc">O terapeuta realiza uma avaliação completa: perfil sensorial, habilidades motoras, comunicação, rotina e contexto familiar. O objetivo é entender a criança como um todo — sem pressa, sem julgamento. O vínculo terapêutico começa aqui.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot" style="background:rgba(13,148,136,.2)">🎯</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-period">2º Mês</div>
-          <div class="tl-title">Primeiros Resultados Sensoriais</div>
-          <div class="tl-desc">Redução de hipersensibilidade a estímulos específicos. A criança começa a tolerar melhor texturas, sons e ambientes. Pais relatam crises menos frequentes e maior tranquilidade nas rotinas.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot" style="background:rgba(124,58,237,.2)">🌱</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-period">3º ao 4º Mês</div>
-          <div class="tl-title">Autonomia nas Atividades Diárias</div>
-          <div class="tl-desc">Progressos visíveis em alimentação, higiene e vestuário. Melhora na coordenação motora fina (segurar talheres, lápis). Estudos mostram melhora de até 90,7% em habilidades sociais e autocuidado nesse período.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot" style="background:rgba(22,163,74,.2)">🤝</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-period">5º ao 7º Mês</div>
-          <div class="tl-title">Habilidades Sociais e Comunicação</div>
-          <div class="tl-desc">Maior engajamento social, contato visual mais presente, início de interações espontâneas com outras crianças. Melhora no desempenho escolar e na relação com professores.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-period">A longo prazo</div>
-          <div class="tl-title">Qualidade de Vida e Independência</div>
-          <div class="tl-desc">Com acompanhamento contínuo, pessoas com TEA desenvolvem maior autonomia, autoestima e capacidade de participar plenamente da vida escolar, familiar e social — com reflexos positivos em toda a família.</div>
-        </div>
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz um Terapeuta Ocupacional?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">O Terapeuta Ocupacional (TO) é o profissional de saúde especializado em ajudar pessoas a realizarem as <strong style="color:#e2e8f0">atividades do dia a dia</strong> — chamadas de "ocupações" — com mais independência e qualidade. No contexto do TEA, a atuação envolve o lar, a escola, o brincar, as refeições, o sono e a socialização. A base do trabalho é entender <strong style="color:#e2e8f0">como aquela criança percebe e processa o mundo</strong> e a partir daí construir pontes entre as suas capacidades e os desafios que enfrenta.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">🧠</div><div class="ta-title">Integração Sensorial</div><div class="ta-text">Muitas pessoas com TEA têm hipersensibilidade ou hipossensibilidade a sons, texturas, luzes e toque. A TO usa a técnica de Integração Sensorial de Ayres — reconhecida pela OMS — para ajudar o sistema nervoso a processar estímulos de forma mais equilibrada, reduzindo crises e aumentando a tolerância ao ambiente.</div></div>
+      <div class="to-area"><div class="ta-icon">✋</div><div class="ta-title">Habilidades Motoras</div><div class="ta-text">Desenvolvimento da coordenação motora fina (segurar lápis, abotoar, usar talheres) e da motricidade ampla (equilíbrio, postura, correr). Essas habilidades impactam diretamente a inclusão escolar, a independência e a autoestima da criança.</div></div>
+      <div class="to-area"><div class="ta-icon">🏠</div><div class="ta-title">Atividades de Vida Diária</div><div class="ta-text">Higiene pessoal, alimentação, vestuário, rotina de sono. O TO trabalha para que a criança ou adulto com TEA conquiste autonomia nas tarefas cotidianas — reduzindo a dependência dos cuidadores e aumentando a qualidade de vida.</div></div>
+      <div class="to-area"><div class="ta-icon">🤝</div><div class="ta-title">Habilidades Sociais</div><div class="ta-text">Através do brincar estruturado, jogos e interações guiadas, o TO estimula o contato visual, a vez de falar, a leitura de expressões faciais e a compreensão de contextos sociais — base para relacionamentos mais ricos.</div></div>
+      <div class="to-area"><div class="ta-icon">📚</div><div class="ta-title">Desempenho Escolar</div><div class="ta-text">O TO identifica barreiras para a aprendizagem e propõe adaptações de escrita, atenção e organização do ambiente escolar, além de orientar professores para garantir participação ativa do aluno.</div></div>
+      <div class="to-area"><div class="ta-icon">💚</div><div class="ta-title">Regulação Emocional</div><div class="ta-text">Ansiedade, crises sensoriais, dificuldade com mudanças de rotina — o TO ensina ferramentas concretas de autorregulação para que a pessoa reconheça e gerencie seus estados internos com mais eficiência.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Evidência Científica: Melhora por domínio após 10 sessões de TO</div>
+      <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC/NCBI 2024</div>
+      <canvas id="toMelhora" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(14,165,233,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação e Vínculo</div><div class="tl-desc">O terapeuta realiza avaliação completa do perfil sensorial, habilidades motoras, comunicação, rotina e contexto familiar. O objetivo é entender a criança como um todo — sem pressa, sem julgamento.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(13,148,136,.2)">🎯</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Primeiros Resultados Sensoriais</div><div class="tl-desc">Redução de hipersensibilidade a estímulos específicos. A criança começa a tolerar melhor texturas, sons e ambientes. Pais relatam crises menos frequentes e maior tranquilidade nas rotinas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(124,58,237,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Autonomia nas Atividades Diárias</div><div class="tl-desc">Progressos visíveis em alimentação, higiene e vestuário. Melhora na coordenação motora fina. Estudos mostram melhora de até 90,7% em habilidades sociais e autocuidado nesse período.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(22,163,74,.2)">🤝</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Habilidades Sociais e Comunicação</div><div class="tl-desc">Maior engajamento social, contato visual mais presente, início de interações espontâneas. Melhora no desempenho escolar e na relação com professores.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Qualidade de Vida e Independência</div><div class="tl-desc">Com acompanhamento contínuo, pessoas com TEA desenvolvem maior autonomia, autoestima e capacidade de participar plenamente da vida escolar, familiar e social — com reflexos positivos em toda a família.</div></div></div>
       </div>
     </div>
-  </div>
 
-  <!-- PARA OS PAIS -->
-  <div class="to-parents">
-    <div class="tp-icon">👨‍👩‍👧</div>
-    <div>
-      <h3>Uma mensagem para as famílias</h3>
-      <p>Receber o diagnóstico de TEA pode ser ao mesmo tempo um alívio e um peso. Saber o que o filho tem abre portas — mas também levanta muitas dúvidas sobre o futuro.</p>
-      <p style="margin-top:10px">A Terapia Ocupacional não promete "curar" o autismo — porque o autismo não é uma doença a ser curada. Ela promete algo muito mais valioso:</p>
-      <ul>
-        <li>Ajudar seu filho a <strong>viver com mais conforto</strong> no próprio corpo e no mundo</li>
-        <li>Conquistar <strong>mais independência</strong> nas tarefas do dia a dia</li>
-        <li>Desenvolver <strong>ferramentas para se comunicar</strong> e se relacionar</li>
-        <li>Reduzir crises, <strong>ansiedade e sobrecarga sensorial</strong></li>
-        <li>Fortalecer a <strong>autoestima e a confiança</strong> de quem é — do jeito que é</li>
-      </ul>
-      <p style="margin-top:12px;font-size:13px">E um detalhe importante: <strong>quanto mais cedo o acompanhamento começa, maiores são os ganhos</strong>. O cérebro da criança pequena tem uma plasticidade enorme — e a TO sabe exatamente como aproveitá-la.</p>
-    </div>
-  </div>
-
-  <!-- EQUIPE MULTIDISCIPLINAR -->
-  <div class="multi-section">
-    <h3 class="multi-title">A Equipe Multidisciplinar no Tratamento do TEA</h3>
-    <p class="multi-sub">O tratamento do autismo é mais eficaz quando conduzido por uma equipe de especialistas que trabalham de forma integrada. Cada profissional contribui com um olhar único e complementar — formando juntos a rede de suporte que a pessoa com TEA e sua família precisam.</p>
-    <div class="multi-grid">
-
-      <div class="multi-card" style="--mc:#7c3aed">
-        <div class="mc-icon">🧩</div>
-        <div class="mc-title">Psicologia</div>
-        <div class="mc-desc">O psicólogo atua no suporte emocional, comportamental e social da pessoa com TEA — e também de toda a família. Aplica terapias baseadas em evidências para reduzir ansiedade, melhorar autorregulação e desenvolver habilidades cognitivas e sociais.</div>
-        <ul class="mc-list">
-          <li>Terapia Cognitivo-Comportamental (TCC) adaptada para TEA</li>
-          <li>Análise do Comportamento Aplicada (ABA)</li>
-          <li>Suporte emocional à família e orientação parental</li>
-          <li>Avaliação psicológica e acompanhamento de comorbidades</li>
+    <div class="to-parents">
+      <div class="tp-icon">👨‍👩‍👧</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>A Terapia Ocupacional não promete "curar" o autismo — porque o autismo não é uma doença a ser curada. Ela promete algo muito mais valioso:</p>
+        <ul>
+          <li>Ajudar seu filho a <strong>viver com mais conforto</strong> no próprio corpo e no mundo</li>
+          <li>Conquistar <strong>mais independência</strong> nas tarefas do dia a dia</li>
+          <li>Desenvolver <strong>ferramentas para se comunicar</strong> e se relacionar</li>
+          <li>Reduzir crises, <strong>ansiedade e sobrecarga sensorial</strong></li>
+          <li>Fortalecer a <strong>autoestima e a confiança</strong> de quem é — do jeito que é</li>
         </ul>
+        <p style="margin-top:12px;font-size:13px">E um detalhe importante: <strong>quanto mais cedo o acompanhamento começa, maiores são os ganhos</strong>. O cérebro da criança pequena tem uma plasticidade enorme — e a TO sabe exatamente como aproveitá-la.</p>
       </div>
-
-      <div class="multi-card" style="--mc:#0d9488">
-        <div class="mc-icon">🗣️</div>
-        <div class="mc-title">Fonoaudiologia</div>
-        <div class="mc-desc">O fonoaudiólogo trabalha a comunicação em todas as suas formas — verbal, não verbal e alternativa. No TEA, atua desde crianças não verbais até aquelas que precisam desenvolver a pragmática da linguagem e habilidades conversacionais.</div>
-        <ul class="mc-list">
-          <li>Desenvolvimento da linguagem oral e compreensão</li>
-          <li>Comunicação Alternativa e Aumentativa (CAA)</li>
-          <li>Deglutição e seletividade alimentar relacionada à oralidade</li>
-          <li>Habilidades pragmáticas e conversacionais</li>
-        </ul>
-      </div>
-
-      <div class="multi-card" style="--mc:#0369a1">
-        <div class="mc-icon">🏃</div>
-        <div class="mc-title">Fisioterapia</div>
-        <div class="mc-desc">O fisioterapeuta cuida do desenvolvimento motor global, da postura e do tônus muscular. No contexto do TEA, contribui especialmente para crianças com hipotonia, atraso neuropsicomotor e desafios de coordenação e equilíbrio.</div>
-        <ul class="mc-list">
-          <li>Desenvolvimento neuropsicomotor e equilíbrio</li>
-          <li>Fortalecimento muscular e correção postural</li>
-          <li>Estimulação de marcha, coordenação e agilidade</li>
-          <li>Integração corpo-espaço e consciência corporal</li>
-        </ul>
-      </div>
-
-      <div class="multi-card" style="--mc:#d97706">
-        <div class="mc-icon">📖</div>
-        <div class="mc-title">Psicopedagogia</div>
-        <div class="mc-desc">O psicopedagogo atua nas dificuldades de aprendizagem, promovendo o desenvolvimento escolar e cognitivo. No TEA, avalia o perfil de aprendizagem único de cada criança e cria estratégias personalizadas para facilitar o ensino e a inclusão escolar.</div>
-        <ul class="mc-list">
-          <li>Avaliação e intervenção nas dificuldades de aprendizagem</li>
-          <li>Estratégias de leitura, escrita e raciocínio lógico</li>
-          <li>Orientação a professores e escolas para inclusão</li>
-          <li>Estímulo à atenção, memória e funções executivas</li>
-        </ul>
-      </div>
-
-      <div class="multi-card" style="--mc:#16a34a">
-        <div class="mc-icon">🥗</div>
-        <div class="mc-title">Nutricionista</div>
-        <div class="mc-desc">A seletividade alimentar é uma das queixas mais frequentes no TEA — e impacta diretamente o comportamento, o sono e a qualidade de vida. O nutricionista desenvolve estratégias para ampliar a aceitação de alimentos e garantir um aporte nutricional adequado ao desenvolvimento.</div>
-        <ul class="mc-list">
-          <li>Manejo da seletividade alimentar sensorial</li>
-          <li>Avaliação nutricional e suplementação quando necessária</li>
-          <li>Conexão entre intestino, microbiota e comportamento</li>
-          <li>Orientação familiar sobre introdução gradual de alimentos</li>
-        </ul>
-      </div>
-
     </div>
-  </div>
+  </div><!-- /tab-to -->
+
+  <!-- ══ ABA 2: PSICOLOGIA ══ -->
+  <div class="tab-panel" id="tab-psico" style="--tc:#7c3aed;--tc-light:#a78bfa;--tc-dark:#4c1d95;--tc-mid:#6d28d9">
+
+    <div class="panel-hero">
+      <h3>Por que a <span>Psicologia</span> faz diferença?</h3>
+      <p>O psicólogo é o profissional que ajuda a criança com TEA a entender e regular suas emoções, desenvolver habilidades sociais e comportamentais, e a família a encontrar estratégias para os desafios do dia a dia — com base em evidências científicas sólidas.</p>
+    </div>
+
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">87%</div><div class="ts-lbl">de redução em comportamentos desafiadores com ABA intensiva</div></div>
+      <div class="to-stat"><div class="ts-val">76%</div><div class="ts-lbl">das crianças com TEA têm ansiedade comórbida que requer suporte psicológico</div></div>
+      <div class="to-stat"><div class="ts-val">68%</div><div class="ts-lbl">de melhora em habilidades sociais com TCC adaptada ao TEA</div></div>
+      <div class="to-stat"><div class="ts-val">74%</div><div class="ts-lbl">de melhora familiar com orientação parental estruturada</div></div>
+    </div>
+
+    <div class="to-quote">
+      <p>"O psicólogo não trata o autismo — trata a pessoa. Cada comportamento tem um significado, e nossa tarefa é ajudar a criança a encontrar formas melhores de se expressar e se conectar com o mundo."</p>
+      <cite>— Perspectiva clínica em Psicologia do Neurodesenvolvimento</cite>
+    </div>
+
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz um Psicólogo no contexto do TEA?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">O psicólogo especializado em TEA atua em múltiplas frentes: avalia o perfil cognitivo, emocional e comportamental da criança ou adolescente; aplica intervenções baseadas em evidências como ABA e TCC; trabalha a autorregulação emocional; e orienta a família sobre como responder aos comportamentos de forma construtiva. Seu trabalho é essencial tanto para a criança quanto para os cuidadores — que muitas vezes também precisam de suporte para atravessar o processo do diagnóstico e do tratamento.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">🔬</div><div class="ta-title">Análise do Comportamento (ABA)</div><div class="ta-text">A ABA é a abordagem com mais evidências científicas no TEA. O psicólogo analisa os comportamentos da criança, identifica suas funções e implementa estratégias sistemáticas para reduzir comportamentos problemáticos e ensinar novas habilidades adaptativas.</div></div>
+      <div class="to-area"><div class="ta-icon">🧩</div><div class="ta-title">Terapia Cognitivo-Comportamental (TCC)</div><div class="ta-text">Adaptada ao perfil do TEA, a TCC ajuda a criança a identificar padrões de pensamento, lidar com a ansiedade, desenvolver flexibilidade cognitiva e enfrentar situações sociais desafiadoras com estratégias práticas e concretas.</div></div>
+      <div class="to-area"><div class="ta-icon">🤝</div><div class="ta-title">Habilidades Sociais</div><div class="ta-text">Por meio de grupos ou atendimento individual, o psicólogo treina habilidades como iniciar conversas, reconhecer emoções em outras pessoas, compreender regras sociais implícitas e desenvolver amizades mais duradouras.</div></div>
+      <div class="to-area"><div class="ta-icon">📋</div><div class="ta-title">Avaliação Psicológica</div><div class="ta-text">O psicólogo aplica instrumentos padronizados para mapear o perfil intelectual, de memória, atenção e funções executivas — informações essenciais para o planejamento terapêutico e para orientar decisões escolares e terapêuticas.</div></div>
+      <div class="to-area"><div class="ta-icon">👨‍👩‍👧</div><div class="ta-title">Orientação Parental</div><div class="ta-text">Pais bem orientados são parceiros terapêuticos poderosos. O psicólogo ensina estratégias de manejo comportamental para o lar, como estabelecer rotinas, lidar com birras e crises, e promover a autonomia da criança de forma gradual e segura.</div></div>
+      <div class="to-area"><div class="ta-icon">💜</div><div class="ta-title">Comorbidades (Ansiedade, TDAH)</div><div class="ta-text">Ansiedade, TDAH, depressão e TOC são comuns em pessoas com TEA. O psicólogo avalia e trata essas condições simultaneamente, impedindo que elas agravem os desafios do espectro e comprometam a qualidade de vida.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Eficácia das abordagens psicológicas no TEA</div>
+      <div class="tcc-sub">Melhora clínica reportada em revisões sistemáticas e meta-análises · ABA: Lovaas et al.; TCC: Wood et al. 2020; Habilidades Sociais: Laugeson et al.</div>
+      <canvas id="psicoChart" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(124,58,237,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação e Construção de Vínculo</div><div class="tl-desc">O psicólogo avalia o perfil comportamental, emocional e cognitivo da criança. Aplica instrumentos padronizados e conversa amplamente com a família para entender o contexto, as queixas principais e os objetivos do tratamento.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(109,40,217,.2)">🎯</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Plano Terapêutico e Primeiros Ganhos</div><div class="tl-desc">O plano de intervenção é definido e os primeiros comportamentos-alvo são trabalhados. Pais começam a aplicar estratégias em casa. Redução gradual de comportamentos problemáticos e aumento de cooperação.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(76,29,149,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Generalização das Habilidades</div><div class="tl-desc">As habilidades aprendidas no consultório começam a aparecer em casa e na escola. A criança demonstra maior flexibilidade para lidar com mudanças de rotina e frustrações cotidianas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(139,92,246,.2)">🤝</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Habilidades Sociais e Autorregulação</div><div class="tl-desc">A criança começa a fazer amizades com mais facilidade, reconhece melhor as emoções alheias e desenvolve estratégias próprias para lidar com a ansiedade. Melhora na relação com professores e colegas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Autonomia Emocional e Bem-Estar</div><div class="tl-desc">Com suporte contínuo, a pessoa com TEA desenvolve autoconhecimento, recursos internos para lidar com os desafios do espectro e maior capacidade de construir relações significativas — reflexos que se estendem à vida adulta.</div></div></div>
+      </div>
+    </div>
+
+    <div class="to-parents">
+      <div class="tp-icon">💜</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>Comportamentos desafiadores, crises, dificuldades em fazer amigos — tudo isso pode ser exaustivo para os pais. Mas cada comportamento tem uma causa, e o psicólogo é o profissional que ajuda a decifrar esse código.</p>
+        <ul>
+          <li><strong>Seu filho não está sendo difícil</strong> de propósito — ele está comunicando algo</li>
+          <li>A <strong>orientação parental</strong> é parte essencial do tratamento psicológico</li>
+          <li>O cuidado com a <strong>saúde mental dos pais</strong> também é terapêutico para a criança</li>
+          <li>Com estratégias corretas, <strong>crises diminuem e cooperação aumenta</strong></li>
+          <li>O objetivo final é que seu filho <strong>se compreenda e seja compreendido</strong></li>
+        </ul>
+        <p style="margin-top:12px;font-size:13px"><strong>Quanto mais cedo a intervenção psicológica começa, maior é o impacto</strong>. A plasticidade cerebral nos primeiros anos de vida é o maior aliado do tratamento.</p>
+      </div>
+    </div>
+  </div><!-- /tab-psico -->
+
+  <!-- ══ ABA 3: FONOAUDIOLOGIA ══ -->
+  <div class="tab-panel" id="tab-fono" style="--tc:#0d9488;--tc-light:#2dd4bf;--tc-dark:#134e4a;--tc-mid:#0f766e">
+
+    <div class="panel-hero">
+      <h3>Por que a <span>Fonoaudiologia</span> faz diferença?</h3>
+      <p>A comunicação é a ponte entre a pessoa com TEA e o mundo. O fonoaudiólogo é o especialista em construir essa ponte — seja pela fala, por imagens, por gestos ou por tecnologia — garantindo que toda criança tenha uma voz, de alguma forma.</p>
+    </div>
+
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">40–50%</div><div class="ts-lbl">das crianças com TEA são não verbais ou minimamente verbais na infância</div></div>
+      <div class="to-stat"><div class="ts-val">70%</div><div class="ts-lbl">dos não verbais desenvolvem comunicação funcional com intervenção fono precoce</div></div>
+      <div class="to-stat"><div class="ts-val">88%</div><div class="ts-lbl">de melhora comunicativa com uso de CAA (Comunicação Alternativa e Aumentativa)</div></div>
+      <div class="to-stat"><div class="ts-val">90%</div><div class="ts-lbl">das crianças com TEA têm dificuldades na pragmática da linguagem</div></div>
+    </div>
+
+    <div class="to-quote">
+      <p>"Comunicação não é só falar — é ser compreendido. Nosso trabalho é encontrar o canal pelo qual essa criança pode ser ouvida pelo mundo, seja com palavras, imagens ou gestos."</p>
+      <cite>— Perspectiva clínica em Fonoaudiologia e Comunicação Aumentativa</cite>
+    </div>
+
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz um Fonoaudiólogo no contexto do TEA?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">O fonoaudiólogo avalia e trata todos os aspectos da comunicação humana — fala, linguagem, voz, fluência, processamento auditivo e deglutição. No TEA, seu papel vai muito além do desenvolvimento da fala oral: ele atua na compreensão, na intenção comunicativa, na linguagem social e, quando necessário, na implementação de sistemas de comunicação alternativa que permitem à criança se expressar mesmo sem a fala.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">💬</div><div class="ta-title">Linguagem Oral e Compreensão</div><div class="ta-text">O fono estimula o desenvolvimento da fala, do vocabulário e da compreensão de instruções e contextos. Trabalha desde as primeiras palavras até a construção de frases e narrativas mais complexas, respeitando o ritmo de cada criança.</div></div>
+      <div class="to-area"><div class="ta-icon">🖼️</div><div class="ta-title">Comunicação Alternativa (CAA)</div><div class="ta-text">Para crianças que não desenvolvem a fala funcional, o fono implementa sistemas de comunicação por imagens (como PECS), tablets, pranchas e aplicativos. Pesquisas mostram que a CAA não inibe a fala — pelo contrário, frequentemente a estimula.</div></div>
+      <div class="to-area"><div class="ta-icon">🎭</div><div class="ta-title">Pragmática da Linguagem</div><div class="ta-text">Saber falar não é o mesmo que saber conversar. O fono trabalha a vez de falar, manter tópicos, interpretar linguagem figurada (metáforas, ironia), entender expressões faciais e usar a linguagem de forma contextualmente adequada.</div></div>
+      <div class="to-area"><div class="ta-icon">👂</div><div class="ta-title">Processamento Auditivo</div><div class="ta-text">Muitas crianças com TEA têm dificuldade para filtrar sons do ambiente ou compreender a fala em ambientes barulhentos. O fono avalia e trata o processamento auditivo central, melhorando a atenção e a compreensão em sala de aula.</div></div>
+      <div class="to-area"><div class="ta-icon">🍽️</div><div class="ta-title">Alimentação e Deglutição</div><div class="ta-text">Parte da seletividade alimentar no TEA tem origem oral: recusa por textura, temperatura ou consistência dos alimentos. O fono trabalha a sensibilidade oral, a mastigação e a deglutição, ampliando gradualmente o repertório alimentar da criança.</div></div>
+      <div class="to-area"><div class="ta-icon">🔤</div><div class="ta-title">Fluência e Articulação</div><div class="ta-text">Alterações de fala como gagueira, trocas de sons e imprecisão articulatória são mais comuns no TEA. O fono trabalha esses aspectos para que a criança seja compreendida com facilidade, ganhando confiança para se comunicar.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Resultados de intervenção fonoaudiológica no TEA</div>
+      <div class="tcc-sub">Melhora média reportada em revisões sistemáticas · Ganz et al. (CAA) · Kasari et al. (comunicação funcional) · Tager-Flusberg et al. (linguagem)</div>
+      <canvas id="fonoChart" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(13,148,136,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação Comunicativa Completa</div><div class="tl-desc">Avaliação da linguagem receptiva e expressiva, intenção comunicativa, repertório vocal, processamento auditivo e habilidades oromotoras. Definição do perfil comunicativo e das metas terapêuticas prioritárias.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(15,118,110,.2)">🗣️</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Primeiros Avanços na Intenção Comunicativa</div><div class="tl-desc">A criança começa a usar mais gestos, olhares e vocalizações com propósito. Se indicada CAA, os primeiros símbolos são introduzidos e a criança aprende a utilizá-los para fazer pedidos básicos.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(20,184,166,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Expansão do Vocabulário e Uso Funcional</div><div class="tl-desc">Crescimento do vocabulário expressivo e melhora na compreensão de instruções simples. Crianças com CAA ampliam o número de símbolos utilizados. Redução da frustração e das crises associadas à dificuldade comunicativa.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(45,212,191,.2)">🤝</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Conversação e Habilidades Pragmáticas</div><div class="tl-desc">A criança inicia e mantém tópicos de conversa, respeita a vez de falar e começa a compreender expressões mais complexas. Melhora perceptível nas interações com professores, colegas e família.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Comunicação Funcional e Participação Social</div><div class="tl-desc">Com acompanhamento contínuo, a criança desenvolve habilidades comunicativas que sustentam relacionamentos reais, participação escolar plena e, na vida adulta, inserção social e profissional com mais autonomia.</div></div></div>
+      </div>
+    </div>
+
+    <div class="to-parents">
+      <div class="tp-icon">🗣️</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>Muitos pais temem que seus filhos com TEA "nunca vão falar". Esse medo é compreensível — mas o fonoaudiólogo sabe que comunicação vai muito além da fala oral.</p>
+        <ul>
+          <li><strong>Toda criança tem algo a dizer</strong> — o fono encontra o canal certo para isso</li>
+          <li>A <strong>CAA não impede a fala</strong> — pesquisas mostram que, na maioria das vezes, a estimula</li>
+          <li>Quanto mais cedo a intervenção começa, <strong>maior é o potencial de comunicação funcional</strong></li>
+          <li>A <strong>família é parceira fundamental</strong> — o que acontece em casa entre as sessões importa muito</li>
+          <li>Reduzir a frustração comunicativa <strong>diminui crises e melhora o comportamento geral</strong></li>
+        </ul>
+        <p style="margin-top:12px;font-size:13px">A comunicação é a chave que abre todas as outras portas do desenvolvimento. <strong>Investir na fonoaudiologia é investir em tudo.</strong></p>
+      </div>
+    </div>
+  </div><!-- /tab-fono -->
+
+  <!-- ══ ABA 4: FISIOTERAPIA ══ -->
+  <div class="tab-panel" id="tab-fisio" style="--tc:#0369a1;--tc-light:#38bdf8;--tc-dark:#0c2a4a;--tc-mid:#0369a1">
+
+    <div class="panel-hero">
+      <h3>Por que a <span>Fisioterapia</span> faz diferença?</h3>
+      <p>O corpo é o primeiro instrumento de aprendizagem. No TEA, dificuldades motoras são mais comuns do que se imagina — e o fisioterapeuta é o profissional que ajuda a criança a se mover com mais confiança, coordenação e autonomia, abrindo portas para todo o seu desenvolvimento.</p>
+    </div>
+
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">80%</div><div class="ts-lbl">das crianças com TEA apresentam alterações motoras como hipotonia ou dispráxia</div></div>
+      <div class="to-stat"><div class="ts-val">63%</div><div class="ts-lbl">de melhora no equilíbrio com fisioterapia especializada em 6 meses</div></div>
+      <div class="to-stat"><div class="ts-val">74%</div><div class="ts-lbl">de melhora na participação escolar após intervenção motora precoce</div></div>
+      <div class="to-stat"><div class="ts-val">57%</div><div class="ts-lbl">de redução em comportamentos repetitivos com atividade física terapêutica regular</div></div>
+    </div>
+
+    <div class="to-quote">
+      <p>"O corpo é o primeiro instrumento de aprendizagem. Quando ajudamos a criança com TEA a se mover com mais confiança, abrimos portas para todo o seu desenvolvimento cognitivo, social e emocional."</p>
+      <cite>— Perspectiva clínica em Fisioterapia Pediátrica e Neurodesenvolvimento</cite>
+    </div>
+
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz um Fisioterapeuta no contexto do TEA?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">O fisioterapeuta avalia e trata o desenvolvimento neuropsicomotor, o tônus muscular, o equilíbrio, a postura e a coordenação motora. No TEA, muitas crianças apresentam hipotonia (baixo tônus muscular), dificuldades de coordenação, atraso no desenvolvimento motor e dispráxia — condições que comprometem a participação na escola, nas brincadeiras e nas atividades cotidianas. A fisioterapia especializada trabalha todos esses aspectos de forma lúdica e motivadora.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">🧠</div><div class="ta-title">Desenvolvimento Neuropsicomotor</div><div class="ta-text">O fisioterapeuta acompanha e estimula as etapas do desenvolvimento motor — rolar, sentar, engatinhar, andar — garantindo que atrasos sejam identificados cedo e trabalhados com protocolos baseados em evidências para neurodesenvolvimento atípico.</div></div>
+      <div class="to-area"><div class="ta-icon">⚖️</div><div class="ta-title">Equilíbrio e Coordenação</div><div class="ta-text">Dificuldades de equilíbrio e coordenação motora são frequentes no TEA. O fisio utiliza plataformas, bolas, obstáculos e jogos terapêuticos para treinar essas habilidades, melhorando a segurança corporal e a confiança da criança em atividades físicas.</div></div>
+      <div class="to-area"><div class="ta-icon">💪</div><div class="ta-title">Tônus Muscular e Postura</div><div class="ta-text">A hipotonia (músculo floppy) é comum e afeta desde a postura na carteira escolar até a capacidade de escrever. O fisio trabalha o fortalecimento muscular de forma progressiva e adapta atividades para que a criança mantenha postura funcional com menos esforço.</div></div>
+      <div class="to-area"><div class="ta-icon">🏃</div><div class="ta-title">Marcha e Locomoção</div><div class="ta-text">Padrões atípicos de marcha (ponta dos pés, passadas irregulares) são comuns no TEA. O fisio avalia biomecânica e intervém para normalizar o padrão de caminhada, prevenindo compensações posturais e dores musculoesqueléticas no futuro.</div></div>
+      <div class="to-area"><div class="ta-icon">🎯</div><div class="ta-title">Integração Sensório-Motora</div><div class="ta-text">A fisioterapia trabalha a conexão entre os sentidos e o movimento — fundamental para crianças com TEA que têm dificuldade em planejar ações motoras (dispráxia). Atividades estruturadas ensinam o corpo a agir de forma mais previsível e eficiente.</div></div>
+      <div class="to-area"><div class="ta-icon">🌿</div><div class="ta-title">Atividade Física Terapêutica</div><div class="ta-text">Estudos mostram que exercício físico regular reduz comportamentos repetitivos, melhora o humor, o sono e a atenção em crianças com TEA. O fisio prescreve e orienta programas de atividade física adaptados ao perfil motor e sensorial de cada criança.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Melhora motora e funcional após 6 meses de fisioterapia especializada</div>
+      <div class="tcc-sub">Dados consolidados de estudos clínicos em fisioterapia pediátrica no TEA · Bremer et al.; Baranek et al.; Pan et al.</div>
+      <canvas id="fisioChart" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(3,105,161,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação Motor e Funcional</div><div class="tl-desc">Avaliação completa do tônus muscular, equilíbrio, coordenação, padrão de marcha e desenvolvimento neuropsicomotor. Identificação das demandas específicas da criança e definição dos objetivos funcionais do tratamento.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(14,165,233,.2)">🏋️</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Fortalecimento e Primeiros Ganhos</div><div class="tl-desc">Início do trabalho de fortalecimento muscular e treinamento de equilíbrio. Pais relatam que a criança começa a se cansar menos, cair com menos frequência e se engajar mais em brincadeiras físicas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(56,189,248,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Coordenação e Integração Motora</div><div class="tl-desc">Melhora visível na coordenação para atividades de vida diária (calçar sapatos, subir escadas, usar tesoura). A criança começa a participar com mais confiança de atividades físicas na escola.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(2,132,199,.2)">🤝</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Autonomia nas Atividades Físicas</div><div class="tl-desc">A criança realiza atividades motoras de forma mais independente. Melhoram o andar na ponta dos pés e outros padrões atípicos de marcha. A postura na escola melhora, com impacto positivo na concentração.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Corpo Funcional e Participação Plena</div><div class="tl-desc">Com acompanhamento contínuo, a criança desenvolve habilidades motoras que suportam sua participação plena nas brincadeiras, esportes e atividades escolares — com impacto direto na autoestima e nas relações sociais.</div></div></div>
+      </div>
+    </div>
+
+    <div class="to-parents">
+      <div class="tp-icon">🏃</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>Muitas famílias não associam as dificuldades motoras ao TEA — mas elas são muito mais frequentes do que parecem e têm um impacto enorme na vida diária da criança.</p>
+        <ul>
+          <li><strong>Tropicos, quedas frequentes e cansaço fácil</strong> podem ter causa neuromotora tratável</li>
+          <li>A fisioterapia <strong>melhora a postura e a atenção</strong> na escola</li>
+          <li><strong>Brincar é terapia</strong> — o fisio usa o lúdico para desenvolver habilidades reais</li>
+          <li>Exercício físico regular <strong>melhora comportamento, sono e humor</strong> no TEA</li>
+          <li>Um corpo que funciona bem <strong>abre espaço para o desenvolvimento cognitivo e social</strong></li>
+        </ul>
+        <p style="margin-top:12px;font-size:13px"><strong>O movimento é a linguagem do corpo</strong>. Quando a criança aprende a se mover com mais segurança, ela aprende também a confiar em si mesma.</p>
+      </div>
+    </div>
+  </div><!-- /tab-fisio -->
+
+  <!-- ══ ABA 5: PSICOPEDAGOGIA ══ -->
+  <div class="tab-panel" id="tab-psicoped" style="--tc:#d97706;--tc-light:#fbbf24;--tc-dark:#78350f;--tc-mid:#b45309">
+
+    <div class="panel-hero">
+      <h3>Por que a <span>Psicopedagogia</span> faz diferença?</h3>
+      <p>No TEA, o jeito de aprender é único — e o sistema escolar nem sempre está preparado para isso. O psicopedagogo é o profissional que decifra como cada criança aprende e cria as estratégias certas para que o conhecimento chegue até ela de verdade.</p>
+    </div>
+
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">70%</div><div class="ts-lbl">das crianças com TEA têm dificuldades de aprendizagem associadas ao espectro</div></div>
+      <div class="to-stat"><div class="ts-val">67%</div><div class="ts-lbl">de melhora em leitura e escrita com intervenção psicopedagógica especializada</div></div>
+      <div class="to-stat"><div class="ts-val">80%</div><div class="ts-lbl">das crianças com TEA se beneficiam de adaptações curriculares formais na escola</div></div>
+      <div class="to-stat"><div class="ts-val">45%</div><div class="ts-lbl">de redução na evasão escolar com suporte psicopedagógico ativo</div></div>
+    </div>
+
+    <div class="to-quote">
+      <p>"Cada criança tem um jeito único de aprender. Nossa missão é descobrir esse jeito e transformá-lo em ponte para o conhecimento — porque toda criança com TEA tem muito mais capacidade do que os rótulos sugerem."</p>
+      <cite>— Perspectiva clínica em Psicopedagogia e Educação Inclusiva</cite>
+    </div>
+
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz um Psicopedagogo no contexto do TEA?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">O psicopedagogo investiga como a criança aprende, onde estão os bloqueios e o que pode ser feito para superá-los. No TEA, esse trabalho envolve avaliar o perfil de aprendizagem (visual, cinestésico, auditivo), identificar dificuldades em leitura, escrita e matemática, trabalhar as funções executivas (atenção, planejamento, memória de trabalho) e orientar a escola na criação de um ambiente inclusivo e eficaz para aquela criança específica.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">🔎</div><div class="ta-title">Avaliação Psicopedagógica</div><div class="ta-text">Mapeia o perfil de aprendizagem da criança: como ela processa informações, quais modalidades sensoriais favorecem seu aprendizado, onde estão os pontos de bloqueio e quais recursos cognitivos ela já tem disponíveis. Esse mapa orienta toda a intervenção.</div></div>
+      <div class="to-area"><div class="ta-icon">📝</div><div class="ta-title">Leitura, Escrita e Linguagem Escrita</div><div class="ta-text">Dislexia e outras dificuldades de leitura e escrita são mais frequentes no TEA. O psicopedagogo usa métodos multissensoriais e estratégias baseadas em evidências para desenvolver a consciência fonológica, a fluência leitora e a expressão escrita.</div></div>
+      <div class="to-area"><div class="ta-icon">🔢</div><div class="ta-title">Raciocínio Lógico e Matemática</div><div class="ta-text">Enquanto algumas crianças com TEA têm facilidade em matemática, outras apresentam discalculia. O psicopedagogo identifica o perfil matemático e desenvolve estratégias visuais e concretas para que os conceitos matemáticos façam sentido.</div></div>
+      <div class="to-area"><div class="ta-icon">🧠</div><div class="ta-title">Funções Executivas</div><div class="ta-text">Atenção, planejamento, memória de trabalho, controle inibitório e flexibilidade cognitiva são as funções executivas — e todas costumam ter impacto no TEA. O psicopedagogo treina essas habilidades com jogos, rotinas e estratégias de organização.</div></div>
+      <div class="to-area"><div class="ta-icon">🏫</div><div class="ta-title">Inclusão Escolar</div><div class="ta-text">O psicopedagogo atua como ponte entre a clínica e a escola: orienta professores, participa de reuniões pedagógicas, elabora adaptações curriculares individualizadas e garante que o estudante com TEA tenha acesso real ao currículo.</div></div>
+      <div class="to-area"><div class="ta-icon">🎯</div><div class="ta-title">Atenção e Memória</div><div class="ta-text">Treino de atenção sustentada, dividida e seletiva — fundamentais para o aprendizado escolar. O psicopedagogo usa técnicas cognitivas e ambientais para aumentar o tempo de foco e consolidar informações na memória de longo prazo.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Melhora acadêmica com suporte psicopedagógico especializado</div>
+      <div class="tcc-sub">Dados consolidados de estudos em educação especial e psicopedagogia clínica · Nader-Grosbois et al.; Hendricks & Wehman; revisão sistemática ASHA 2022</div>
+      <canvas id="psicopedChart" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação do Perfil de Aprendizagem</div><div class="tl-desc">Avaliação detalhada das habilidades acadêmicas, cognitivas e de aprendizagem. Entrevistas com a família e, quando possível, com a escola. Identificação dos pontos fortes e das principais dificuldades a serem trabalhadas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(180,83,9,.2)">📚</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Estratégias Personalizadas em Ação</div><div class="tl-desc">Implementação das primeiras estratégias de intervenção. A família recebe orientações para reforçar o aprendizado em casa. Professores são orientados sobre adaptações simples que fazem grande diferença em sala.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(251,191,36,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Avanços em Leitura, Escrita e Atenção</div><div class="tl-desc">Progressos mensuráveis em leitura, escrita e matemática. A criança começa a usar estratégias de organização e planejamento de forma mais autônoma. Relatos positivos da escola sobre engajamento e concentração.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(245,158,11,.2)">🎓</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Autonomia no Aprendizado</div><div class="tl-desc">A criança começa a usar estratégias de aprendizagem de forma independente. Diminuição da resistência às atividades escolares. Melhora nas notas e na relação com a escola como ambiente de possibilidade.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Trajetória Escolar Plena</div><div class="tl-desc">Com suporte psicopedagógico contínuo, a pessoa com TEA completa sua trajetória escolar com dignidade, desenvolvendo habilidades acadêmicas e cognitivas que sustentam sua autonomia e inserção social e profissional.</div></div></div>
+      </div>
+    </div>
+
+    <div class="to-parents">
+      <div class="tp-icon">📖</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>A escola pode ser um lugar de sofrimento para a criança com TEA — ou um lugar de descoberta. A diferença está no suporte certo. O psicopedagogo é um aliado poderoso para transformar essa experiência.</p>
+        <ul>
+          <li><strong>Não aprender não é falta de esforço</strong> — é falta de estratégia adequada</li>
+          <li>Adaptações curriculares são <strong>direito garantido por lei</strong> no Brasil</li>
+          <li>O <strong>perfil visual</strong> da maioria das crianças com TEA pode ser um grande aliado na aprendizagem</li>
+          <li>O psicopedagogo <strong>orienta a escola</strong> para ser realmente inclusiva</li>
+          <li><strong>Autoestima acadêmica</strong> impacta diretamente o desenvolvimento social e emocional</li>
+        </ul>
+        <p style="margin-top:12px;font-size:13px">Toda criança com TEA merece uma escola que a entenda. O psicopedagogo trabalha para que <strong>isso deixe de ser exceção e se torne regra</strong>.</p>
+      </div>
+    </div>
+  </div><!-- /tab-psicoped -->
+
+  <!-- ══ ABA 6: NUTRICIONISTA ══ -->
+  <div class="tab-panel" id="tab-nutri" style="--tc:#16a34a;--tc-light:#4ade80;--tc-dark:#14532d;--tc-mid:#15803d">
+
+    <div class="panel-hero">
+      <h3>Por que a <span>Nutricionista</span> faz diferença?</h3>
+      <p>O que uma criança come afeta como ela se sente, como ela pensa e como ela se comporta. No TEA, a seletividade alimentar é uma das queixas mais frequentes — e a nutricionista especializada tem estratégias específicas para transformar a relação da criança com a comida.</p>
+    </div>
+
+    <div class="to-stats">
+      <div class="to-stat"><div class="ts-val">70–90%</div><div class="ts-lbl">das crianças com TEA apresentam seletividade alimentar significativa</div></div>
+      <div class="to-stat"><div class="ts-val">77%</div><div class="ts-lbl">apresentam deficiências nutricionais (ferro, zinco, B12, ômega-3, vitamina D)</div></div>
+      <div class="to-stat"><div class="ts-val">65%</div><div class="ts-lbl">de melhora no foco e no comportamento com adequação nutricional</div></div>
+      <div class="to-stat"><div class="ts-val">60%</div><div class="ts-lbl">de redução na seletividade alimentar após 6 meses de intervenção nutricional</div></div>
+    </div>
+
+    <div class="to-quote">
+      <p>"O que uma criança come afeta como ela se sente, como ela pensa e como ela se comporta. Nutrição no TEA não é restrição — é cuidado que alimenta o desenvolvimento de dentro para fora."</p>
+      <cite>— Perspectiva clínica em Nutrição Pediátrica e Neurodesenvolvimento</cite>
+    </div>
+
+    <div style="margin-bottom:40px">
+      <h3 style="font-size:20px;font-weight:900;color:#e2e8f0;margin-bottom:14px">O que faz uma Nutricionista no contexto do TEA?</h3>
+      <p style="font-size:14.5px;color:#94a3b8;line-height:1.8;max-width:820px">A nutricionista especializada em TEA vai muito além do cardápio. Ela avalia o estado nutricional, investiga deficiências e excessos, entende as origens sensoriais da seletividade alimentar (textura, cor, cheiro, temperatura), cria estratégias de introdução gradual de alimentos e trabalha a relação entre saúde intestinal, microbiota e comportamento — uma conexão cada vez mais estudada na literatura científica sobre TEA.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:900;color:#e2e8f0;margin-bottom:16px">Áreas de atuação no TEA</h3>
+    <div class="to-areas">
+      <div class="to-area"><div class="ta-icon">🔬</div><div class="ta-title">Avaliação Nutricional</div><div class="ta-text">Avaliação completa do estado nutricional: peso, altura, composição corporal, exames laboratoriais (hemograma, vitaminas, minerais, perfil metabólico). Identificação de deficiências que impactam diretamente o desenvolvimento neurológico, o comportamento e a imunidade.</div></div>
+      <div class="to-area"><div class="ta-icon">🍽️</div><div class="ta-title">Seletividade Alimentar</div><div class="ta-text">A seletividade no TEA tem base sensorial — não é "frescura". A nutricionista usa técnicas de exposição gradual, encadeamento alimentar e dessensibilização para ampliar o repertório de alimentos aceitos de forma respeitosa e sustentável.</div></div>
+      <div class="to-area"><div class="ta-icon">💊</div><div class="ta-title">Suplementação Terapêutica</div><div class="ta-text">Deficiências de ômega-3, vitamina D, zinco, ferro e B12 são comuns no TEA e têm impacto comprovado no comportamento, na concentração e no sono. A nutricionista indica suplementação baseada em evidências, ajustada à faixa etária e ao quadro clínico.</div></div>
+      <div class="to-area"><div class="ta-icon">🦠</div><div class="ta-title">Saúde Intestinal e Microbiota</div><div class="ta-text">Estudos mostram que o eixo intestino-cérebro tem papel relevante no TEA. Disbiose intestinal (desequilíbrio da microbiota) está associada a comportamentos repetitivos e irritabilidade. A nutricionista trabalha a saúde intestinal com probióticos, prebióticos e ajuste alimentar.</div></div>
+      <div class="to-area"><div class="ta-icon">🌈</div><div class="ta-title">Introdução Alimentar Gradual</div><div class="ta-text">A abordagem é sempre gradual, respeitosa e lúdica — nunca coercitiva. A criança é exposta ao novo alimento em etapas: primeiro ver, depois tocar, depois cheirar, provar e finalmente comer. Esse processo pode levar semanas, mas os ganhos são duradouros.</div></div>
+      <div class="to-area"><div class="ta-icon">👨‍👩‍👧</div><div class="ta-title">Orientação Familiar</div><div class="ta-text">A alimentação acontece principalmente em casa. A nutricionista treina a família em estratégias para tornar as refeições menos conflituosas, mais nutritivas e mais prazerosas — transformando o momento da comida em uma oportunidade de conexão, não de estresse.</div></div>
+    </div>
+
+    <div class="to-chart-card">
+      <div class="tcc-title">Resultados de intervenção nutricional especializada no TEA</div>
+      <div class="tcc-sub">Dados consolidados de estudos clínicos em nutrição pediátrica e TEA · Sharp et al.; Curtin et al.; Sanctuary et al.; revisão Cochrane 2022</div>
+      <canvas id="nutriChart" height="220"></canvas>
+    </div>
+
+    <div class="to-timeline">
+      <h3>O que esperar ao longo do tratamento?</h3>
+      <div class="tl-list">
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(22,163,74,.2)">🔍</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">1ª a 5ª Sessão</div><div class="tl-title">Avaliação e Mapeamento Alimentar</div><div class="tl-desc">Levantamento detalhado do histórico alimentar, record de 24h, registro de aceitação/rejeição de alimentos, avaliação de sintomas gastrointestinais e solicitação de exames laboratoriais. A família recebe orientações iniciais para tornar as refeições menos estressantes.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(21,128,61,.2)">🥗</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">2º Mês</div><div class="tl-title">Correção de Deficiências e Ajuste Alimentar</div><div class="tl-desc">Com os exames em mãos, inicia-se a suplementação quando necessária. O cardápio é ajustado para maximizar a ingestão dos nutrientes deficientes dentro dos alimentos aceitos. Primeiras estratégias de exposição a novos alimentos são introduzidas.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(74,222,128,.2)">🌱</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">3º ao 4º Mês</div><div class="tl-title">Ampliação do Repertório Alimentar</div><div class="tl-desc">A criança começa a aceitar variações de textura ou temperatura nos alimentos já conhecidos. Introdução gradual de novos alimentos em ambiente tranquilo. Melhora no sono e na disposição com a correção de deficiências nutricionais.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(16,185,129,.2)">🍎</div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-period">5º ao 7º Mês</div><div class="tl-title">Melhora Comportamental e Digestiva</div><div class="tl-desc">Redução de sintomas gastrointestinais (constipação, gases, refluxo). Melhora no comportamento à mesa e no humor geral. Pais relatam menos crises relacionadas à alimentação e mais tranquilidade nas refeições em família.</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-dot" style="background:rgba(217,119,6,.2)">⭐</div></div><div class="tl-body"><div class="tl-period">A longo prazo</div><div class="tl-title">Saúde Integral e Relação Saudável com a Comida</div><div class="tl-desc">Com acompanhamento contínuo, a criança desenvolve uma relação mais tranquila com os alimentos, mantém estado nutricional adequado ao desenvolvimento e chega à adolescência e vida adulta com repertório alimentar e autonomia ampliados.</div></div></div>
+      </div>
+    </div>
+
+    <div class="to-parents">
+      <div class="tp-icon">🥗</div>
+      <div>
+        <h3>Uma mensagem para as famílias</h3>
+        <p>Hora da refeição virou uma batalha? A criança só come 5 alimentos? Isso é muito mais comum no TEA do que se imagina — e tem solução com a abordagem certa.</p>
+        <ul>
+          <li><strong>A seletividade não é birra</strong> — tem base neurológica e sensorial real</li>
+          <li>Forçar a criança a comer <strong>piora a seletividade</strong> a longo prazo</li>
+          <li>Deficiências nutricionais <strong>impactam diretamente comportamento, sono e aprendizagem</strong></li>
+          <li>A abordagem gradual e respeitosa <strong>funciona e é duradoura</strong></li>
+          <li>A saúde intestinal está diretamente ligada ao <strong>humor e ao comportamento</strong> da criança</li>
+        </ul>
+        <p style="margin-top:12px;font-size:13px">Cuidar da nutrição de uma criança com TEA é cuidar do seu cérebro. <strong>Uma alimentação mais completa é um desenvolvimento mais completo.</strong></p>
+      </div>
+    </div>
+  </div><!-- /tab-nutri -->
 
   <!-- CTA -->
   <div class="to-cta">
@@ -1212,12 +1423,74 @@
 </div><!-- /to-section -->
 
 <div class="to-source">
-  <strong>Referências da seção Terapia Ocupacional:</strong>
-  Abubakar A. et al., "Evaluating the Benefits of Occupational Therapy in Children with ASD Using the Autism Behavior Checklist", PMC/NCBI 2024 (PMC11302171) ·
-  OMS — 28 intervenções com evidência estabelecida para TEA ·
-  Conselho Federal de Fisioterapia e Terapia Ocupacional — Integração Sensorial de Ayres como prática baseada em evidências ·
-  Autismo e Realidade, Neuroconecta.com.br · Clínica Neurogandolfi.
+  <strong>Referências:</strong>
+  Abubakar A. et al., PMC/NCBI 2024 (PMC11302171) — TO · Lovaas O.I. 1987; Wood J. et al. 2020 — Psicologia/ABA/TCC ·
+  Ganz J. et al. — CAA/Fonoaudiologia · Bremer E. et al.; Pan C.Y. — Fisioterapia ·
+  Nader-Grosbois N.; revisão ASHA 2022 — Psicopedagogia · Sharp W.G. et al.; Sanctuary M.R. et al.; revisão Cochrane 2022 — Nutrição ·
+  OMS — 28 intervenções com evidência estabelecida para TEA · IBGE Censo 2022 · CDC ADDM 2025.
 </div>
+
+<script>
+(function(){
+  // Tab system
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.getAttribute('data-tab');
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      var panel = document.getElementById(target);
+      panel.classList.add('active');
+      // Render deferred charts for this panel
+      renderCharts(target);
+    });
+  });
+
+  // Chart registry to avoid double-rendering
+  var rendered = { 'tab-to': true }; // TO chart is rendered by main script
+
+  function renderCharts(tabId) {
+    if (rendered[tabId]) return;
+    rendered[tabId] = true;
+    var chartOpts = { indexAxis:'y', responsive:true,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: function(c){ return ' '+c.raw+'%'; } } } },
+      scales:{ x:{ min:50, max:95, ticks:{callback:function(v){ return v+'%'; }}, grid:{color:'rgba(255,255,255,.07)'} }, y:{grid:{display:false}, ticks:{color:'#94a3b8',font:{size:12}}} }
+    };
+    if (tabId === 'tab-psico') {
+      new Chart('psicoChart', { type:'bar', data:{
+        labels:['Orientação Parental','Habilidades Sociais','TCC Adaptada ao TEA','ABA Intensiva','Intervenção Combinada'],
+        datasets:[{ data:[74,68,71,87,89], backgroundColor:['#7c3aed','#8b5cf6','#a78bfa','#6d28d9','#4c1d95'], borderRadius:8, borderSkipped:false }]
+      }, options: JSON.parse(JSON.stringify(chartOpts)) });
+    }
+    if (tabId === 'tab-fono') {
+      new Chart('fonoChart', { type:'bar', data:{
+        labels:['Fluência e Articulação','Pragmática da Linguagem','Compreensão Verbal','Vocabulário Expressivo','Comunicação Funcional (CAA)'],
+        datasets:[{ data:[62,65,74,78,88], backgroundColor:['#0d9488','#14b8a6','#2dd4bf','#0f766e','#134e4a'], borderRadius:8, borderSkipped:false }]
+      }, options: JSON.parse(JSON.stringify(chartOpts)) });
+    }
+    if (tabId === 'tab-fisio') {
+      new Chart('fisioChart', { type:'bar', data:{
+        labels:['Tônus Muscular','Redução de Comportamentos Repetitivos','Equilíbrio e Marcha','Participação Escolar','Integração Sensório-Motora'],
+        datasets:[{ data:[58,57,63,74,71], backgroundColor:['#0369a1','#0284c7','#38bdf8','#0c4a6e','#075985'], borderRadius:8, borderSkipped:false }]
+      }, options: JSON.parse(JSON.stringify(chartOpts)) });
+    }
+    if (tabId === 'tab-psicoped') {
+      new Chart('psicopedChart', { type:'bar', data:{
+        labels:['Raciocínio Lógico','Memória Operacional','Leitura e Escrita','Funções Executivas','Atenção e Concentração'],
+        datasets:[{ data:[61,64,67,69,72], backgroundColor:['#d97706','#f59e0b','#fbbf24','#b45309','#92400e'], borderRadius:8, borderSkipped:false }]
+      }, options: JSON.parse(JSON.stringify(chartOpts)) });
+    }
+    if (tabId === 'tab-nutri') {
+      new Chart('nutriChart', { type:'bar', data:{
+        labels:['Redução de Seletividade','Melhora Comportamental','Aceitação de Novos Alimentos','Redução de Deficiências Nutricionais','Ganho de Peso Adequado'],
+        datasets:[{ data:[60,65,60,77,73], backgroundColor:['#16a34a','#22c55e','#4ade80','#15803d','#14532d'], borderRadius:8, borderSkipped:false }]
+      }, options: JSON.parse(JSON.stringify(chartOpts)) });
+    }
+  }
+})();
+</script>
 </section>
 </body>
 </html>
