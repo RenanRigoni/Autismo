@@ -1030,7 +1030,7 @@
 
     <div class="to-chart-card">
       <div class="tcc-title">Evidência Científica: Melhora por domínio após 10 sessões de TO</div>
-      <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC/NCBI 2024</div>
+      <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC11302171 · NCBI 2024</div>
       <canvas id="toMelhora" height="220"></canvas>
     </div>
 
@@ -1460,11 +1460,11 @@
     };
     if (tabId === 'tab-to') {
       var toOpts = JSON.parse(JSON.stringify(chartOpts));
-      toOpts.scales.x.min = 80;
+      toOpts.scales.x.min = 85;
       new Chart('toMelhora', { type:'bar', data:{
-        labels:['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
-        datasets:[{ data:[91.5,92.2,89.3,90.7,88.5,90.6],
-          backgroundColor:['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'], borderRadius:9, borderSkipped:false }]
+        labels:['Relacionamento','Sensorial','Social / Autocuidado','Escala Total','Linguagem'],
+        datasets:[{ data:[95.7,95.3,94.1,93.9,92.7],
+          backgroundColor:['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706'], borderRadius:9, borderSkipped:false }]
       }, options: toOpts });
     }
     if (tabId === 'tab-psico') {
