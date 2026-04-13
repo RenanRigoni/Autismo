@@ -847,7 +847,7 @@
       }]
     },
     options: {
-      indexAxis: 'y', responsive: true,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% de melhora` } } },
       scales: {
         x:{ min:80, max:95, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
@@ -1052,7 +1052,7 @@
     <div class="to-chart-card">
       <div class="tcc-title">Evidência Científica: Melhora por domínio após 10 sessões de TO</div>
       <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC/NCBI 2024</div>
-      <canvas id="toMelhora" height="220"></canvas>
+      <div style="position:relative;height:220px"><canvas id="toMelhora"></canvas></div>
     </div>
 
     <div class="to-timeline">
@@ -1512,7 +1512,7 @@
   }
 })();
 </script>
-  <div style="text-align:center;padding:22px 0 28px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px">
+  <div style="text-align:center;padding:15px 0 20px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px">
     <span style="font-size:10.5px;color:#475569;display:block;margin-bottom:6px">Desenvolvido por</span>
     <a href="https://www.instagram.com/renanrigoni/" target="_blank" rel="noopener">
       <img src="rr-colorido-transp.png" alt="div.RR — Renan Rigoni" style="height:28px;opacity:.7;filter:brightness(1.1);display:inline-block">
