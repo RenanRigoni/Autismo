@@ -1033,28 +1033,6 @@
       <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC/NCBI 2024</div>
       <div style="position:relative;height:220px"><canvas id="toMelhora"></canvas></div>
     </div>
-    <script>
-    new Chart('toMelhora', {
-      type: 'bar',
-      data: {
-        labels: ['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
-        datasets: [{
-          label: 'Melhora após 10 sessões (%)',
-          data: [91.5, 92.2, 89.3, 90.7, 88.5, 90.6],
-          backgroundColor: ['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'],
-          borderRadius: 9, borderSkipped: false
-        }]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% de melhora` } } },
-        scales: {
-          x:{ min:80, max:95, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
-          y:{ grid:{display:false} }
-        }
-      }
-    });
-    </script>
 
     <div class="to-timeline">
       <h3>O que esperar ao longo do tratamento?</h3>
@@ -1471,7 +1449,7 @@
   });
 
   // Chart registry to avoid double-rendering
-  var rendered = { 'tab-to': true }; // TO chart is rendered by main script
+  var rendered = {};
 
   function renderCharts(tabId) {
     if (rendered[tabId]) return;
@@ -1480,6 +1458,16 @@
       plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: function(c){ return ' '+c.raw+'%'; } } } },
       scales:{ x:{ min:50, max:95, ticks:{callback:function(v){ return v+'%'; }}, grid:{color:'rgba(255,255,255,.07)'} }, y:{grid:{display:false}, ticks:{color:'#94a3b8',font:{size:12}}} }
     };
+    if (tabId === 'tab-to') {
+      new Chart('toMelhora', { type:'bar', data:{
+        labels:['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
+        datasets:[{ label:'Melhora após 10 sessões (%)', data:[91.5,92.2,89.3,90.7,88.5,90.6],
+          backgroundColor:['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'], borderRadius:9, borderSkipped:false }]
+      }, options: Object.assign(JSON.parse(JSON.stringify(chartOpts)), {
+        maintainAspectRatio: false,
+        scales:{ x:{min:80,max:95,ticks:{callback:function(v){return v+'%';}},grid:{color:'rgba(255,255,255,.07)'}}, y:{grid:{display:false},ticks:{color:'#94a3b8',font:{size:12}}} }
+      }) });
+    }
     if (tabId === 'tab-psico') {
       new Chart('psicoChart', { type:'bar', data:{
         labels:['Orientação Parental','Habilidades Sociais','TCC Adaptada ao TEA','ABA Intensiva','Intervenção Combinada'],
@@ -1511,6 +1499,8 @@
       }, options: JSON.parse(JSON.stringify(chartOpts)) });
     }
   }
+  // Render chart for the initially active tab
+  renderCharts('tab-to');
 })();
 </script>
   <div style="text-align:center;padding:15px 0 20px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px">
