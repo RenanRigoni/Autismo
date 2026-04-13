@@ -834,27 +834,6 @@
     }
   });
 
-  // TO Chart
-  new Chart('toMelhora', {
-    type: 'bar',
-    data: {
-      labels: ['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
-      datasets: [{
-        label: 'Melhora após 10 sessões (%)',
-        data: [91.5, 92.2, 89.3, 90.7, 88.5, 90.6],
-        backgroundColor: ['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'],
-        borderRadius: 9, borderSkipped: false
-      }]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% de melhora` } } },
-      scales: {
-        x:{ min:80, max:95, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
-        y:{ grid:{display:false} }
-      }
-    }
-  });
 </script>
 
 <!-- ════════════════════════════════════════════
@@ -1054,6 +1033,28 @@
       <div class="tcc-sub">Estudo com 40 crianças com TEA (3–9 anos) · Escala ABC (Autism Behavior Checklist) · p &lt; 0,001 · PMC/NCBI 2024</div>
       <div style="position:relative;height:220px"><canvas id="toMelhora"></canvas></div>
     </div>
+    <script>
+    new Chart('toMelhora', {
+      type: 'bar',
+      data: {
+        labels: ['Sensorial','Relacionamento','Linguagem','Social / Autocuidado','Corpo e Objetos','Escala Total'],
+        datasets: [{
+          label: 'Melhora após 10 sessões (%)',
+          data: [91.5, 92.2, 89.3, 90.7, 88.5, 90.6],
+          backgroundColor: ['#0369a1','#0d9488','#7c3aed','#16a34a','#d97706','#1e40af'],
+          borderRadius: 9, borderSkipped: false
+        }]
+      },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c => ` ${c.raw}% de melhora` } } },
+        scales: {
+          x:{ min:80, max:95, ticks:{callback:v=>v+'%'}, grid:{color:'#f1f5f9'} },
+          y:{ grid:{display:false} }
+        }
+      }
+    });
+    </script>
 
     <div class="to-timeline">
       <h3>O que esperar ao longo do tratamento?</h3>
