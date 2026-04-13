@@ -1498,8 +1498,8 @@
       }, options: JSON.parse(JSON.stringify(chartOpts)) });
     }
   }
-  // Render chart for the initially active tab
-  renderCharts('tab-to');
+  // Render chart for the initially active tab (defer so layout is computed first)
+  setTimeout(function(){ renderCharts('tab-to'); }, 0);
 })();
 </script>
   <div style="text-align:center;padding:15px 0 20px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px">
