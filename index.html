@@ -937,12 +937,32 @@
   /* Source line */
   .to-source { font-size: 11px; color: #475569; text-align: center; padding: 20px 60px 28px; background: #0c1445; border-top: 1px solid rgba(255,255,255,.06); }
 
+  /* Multidisciplinary section */
+  .multi-section { margin: 64px 0 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 56px; }
+  .multi-title { font-size: 26px; font-weight: 900; color: #e2e8f0; margin-bottom: 12px; text-align: center; }
+  .multi-sub { font-size: 14.5px; color: #94a3b8; text-align: center; max-width: 700px; margin: 0 auto 40px; line-height: 1.75; }
+  .multi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .multi-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-top: 3px solid var(--mc);
+    border-radius: 14px; padding: 24px 22px;
+    transition: background .2s;
+  }
+  .multi-card:hover { background: rgba(255,255,255,.08); }
+  .multi-card .mc-icon { font-size: 32px; margin-bottom: 12px; }
+  .multi-card .mc-title { font-size: 17px; font-weight: 900; margin-bottom: 10px; color: #e2e8f0; }
+  .multi-card .mc-desc { font-size: 13px; color: #94a3b8; line-height: 1.7; margin-bottom: 14px; }
+  .multi-card .mc-list { padding-left: 16px; margin: 0; }
+  .multi-card .mc-list li { font-size: 12.5px; color: #7dd3fc; line-height: 1.75; }
+
   @media(max-width:960px){
     .to-wrap { padding: 0 20px 56px; }
     .to-stats { grid-template-columns: 1fr 1fr; }
     .to-areas { grid-template-columns: 1fr; }
     .to-parents { grid-template-columns: 1fr; }
     .to-hero h2 { font-size: 28px; }
+    .multi-grid { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -1044,7 +1064,7 @@
           <div class="tl-line"></div>
         </div>
         <div class="tl-body">
-          <div class="tl-period">1ª a 3ª Sessão</div>
+          <div class="tl-period">1ª a 5ª Sessão</div>
           <div class="tl-title">Avaliação e Vínculo</div>
           <div class="tl-desc">O terapeuta realiza uma avaliação completa: perfil sensorial, habilidades motoras, comunicação, rotina e contexto familiar. O objetivo é entender a criança como um todo — sem pressa, sem julgamento. O vínculo terapêutico começa aqui.</div>
         </div>
@@ -1055,7 +1075,7 @@
           <div class="tl-line"></div>
         </div>
         <div class="tl-body">
-          <div class="tl-period">1º Mês</div>
+          <div class="tl-period">2º Mês</div>
           <div class="tl-title">Primeiros Resultados Sensoriais</div>
           <div class="tl-desc">Redução de hipersensibilidade a estímulos específicos. A criança começa a tolerar melhor texturas, sons e ambientes. Pais relatam crises menos frequentes e maior tranquilidade nas rotinas.</div>
         </div>
@@ -1066,7 +1086,7 @@
           <div class="tl-line"></div>
         </div>
         <div class="tl-body">
-          <div class="tl-period">2º ao 3º Mês</div>
+          <div class="tl-period">3º ao 4º Mês</div>
           <div class="tl-title">Autonomia nas Atividades Diárias</div>
           <div class="tl-desc">Progressos visíveis em alimentação, higiene e vestuário. Melhora na coordenação motora fina (segurar talheres, lápis). Estudos mostram melhora de até 90,7% em habilidades sociais e autocuidado nesse período.</div>
         </div>
@@ -1077,7 +1097,7 @@
           <div class="tl-line"></div>
         </div>
         <div class="tl-body">
-          <div class="tl-period">4º ao 6º Mês</div>
+          <div class="tl-period">5º ao 7º Mês</div>
           <div class="tl-title">Habilidades Sociais e Comunicação</div>
           <div class="tl-desc">Maior engajamento social, contato visual mais presente, início de interações espontâneas com outras crianças. Melhora no desempenho escolar e na relação com professores.</div>
         </div>
@@ -1113,10 +1133,79 @@
     </div>
   </div>
 
+  <!-- EQUIPE MULTIDISCIPLINAR -->
+  <div class="multi-section">
+    <h3 class="multi-title">A Equipe Multidisciplinar no Tratamento do TEA</h3>
+    <p class="multi-sub">O tratamento do autismo é mais eficaz quando conduzido por uma equipe de especialistas que trabalham de forma integrada. Cada profissional contribui com um olhar único e complementar — formando juntos a rede de suporte que a pessoa com TEA e sua família precisam.</p>
+    <div class="multi-grid">
+
+      <div class="multi-card" style="--mc:#7c3aed">
+        <div class="mc-icon">🧩</div>
+        <div class="mc-title">Psicologia</div>
+        <div class="mc-desc">O psicólogo atua no suporte emocional, comportamental e social da pessoa com TEA — e também de toda a família. Aplica terapias baseadas em evidências para reduzir ansiedade, melhorar autorregulação e desenvolver habilidades cognitivas e sociais.</div>
+        <ul class="mc-list">
+          <li>Terapia Cognitivo-Comportamental (TCC) adaptada para TEA</li>
+          <li>Análise do Comportamento Aplicada (ABA)</li>
+          <li>Suporte emocional à família e orientação parental</li>
+          <li>Avaliação psicológica e acompanhamento de comorbidades</li>
+        </ul>
+      </div>
+
+      <div class="multi-card" style="--mc:#0d9488">
+        <div class="mc-icon">🗣️</div>
+        <div class="mc-title">Fonoaudiologia</div>
+        <div class="mc-desc">O fonoaudiólogo trabalha a comunicação em todas as suas formas — verbal, não verbal e alternativa. No TEA, atua desde crianças não verbais até aquelas que precisam desenvolver a pragmática da linguagem e habilidades conversacionais.</div>
+        <ul class="mc-list">
+          <li>Desenvolvimento da linguagem oral e compreensão</li>
+          <li>Comunicação Alternativa e Aumentativa (CAA)</li>
+          <li>Deglutição e seletividade alimentar relacionada à oralidade</li>
+          <li>Habilidades pragmáticas e conversacionais</li>
+        </ul>
+      </div>
+
+      <div class="multi-card" style="--mc:#0369a1">
+        <div class="mc-icon">🏃</div>
+        <div class="mc-title">Fisioterapia</div>
+        <div class="mc-desc">O fisioterapeuta cuida do desenvolvimento motor global, da postura e do tônus muscular. No contexto do TEA, contribui especialmente para crianças com hipotonia, atraso neuropsicomotor e desafios de coordenação e equilíbrio.</div>
+        <ul class="mc-list">
+          <li>Desenvolvimento neuropsicomotor e equilíbrio</li>
+          <li>Fortalecimento muscular e correção postural</li>
+          <li>Estimulação de marcha, coordenação e agilidade</li>
+          <li>Integração corpo-espaço e consciência corporal</li>
+        </ul>
+      </div>
+
+      <div class="multi-card" style="--mc:#d97706">
+        <div class="mc-icon">📖</div>
+        <div class="mc-title">Psicopedagogia</div>
+        <div class="mc-desc">O psicopedagogo atua nas dificuldades de aprendizagem, promovendo o desenvolvimento escolar e cognitivo. No TEA, avalia o perfil de aprendizagem único de cada criança e cria estratégias personalizadas para facilitar o ensino e a inclusão escolar.</div>
+        <ul class="mc-list">
+          <li>Avaliação e intervenção nas dificuldades de aprendizagem</li>
+          <li>Estratégias de leitura, escrita e raciocínio lógico</li>
+          <li>Orientação a professores e escolas para inclusão</li>
+          <li>Estímulo à atenção, memória e funções executivas</li>
+        </ul>
+      </div>
+
+      <div class="multi-card" style="--mc:#16a34a">
+        <div class="mc-icon">🥗</div>
+        <div class="mc-title">Nutricionista</div>
+        <div class="mc-desc">A seletividade alimentar é uma das queixas mais frequentes no TEA — e impacta diretamente o comportamento, o sono e a qualidade de vida. O nutricionista desenvolve estratégias para ampliar a aceitação de alimentos e garantir um aporte nutricional adequado ao desenvolvimento.</div>
+        <ul class="mc-list">
+          <li>Manejo da seletividade alimentar sensorial</li>
+          <li>Avaliação nutricional e suplementação quando necessária</li>
+          <li>Conexão entre intestino, microbiota e comportamento</li>
+          <li>Orientação familiar sobre introdução gradual de alimentos</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
   <!-- CTA -->
   <div class="to-cta">
     <p>🩵 Cuide de quem você ama com informação e acompanhamento especializado.</p>
-    <p class="cta-sub">Este painel foi desenvolvido para o Abril Azul — Mês de Conscientização sobre Autismo · 2025</p>
+    <p class="cta-sub">Este painel foi desenvolvido para o Abril Azul — Mês de Conscientização sobre Autismo · 2026</p>
   </div>
 
 </div><!-- /to-wrap -->
