@@ -140,7 +140,7 @@
 <body>
 
 <header>
-  <img src="alicerce-transp.png" alt="Alicerce — Espaço Terapêutico Infantil" style="height:72px;opacity:.92;margin-bottom:14px;display:block">
+  <img src="alicerce-wordmark.png" alt="Alicerce — Espaço Terapêutico Infantil" style="height:52px;opacity:.95;margin-bottom:16px;display:block">
   <div class="h-eyebrow">Organização Mundial da Saúde · Global Burden of Disease 2021</div>
   <h1>Autismo no Mundo — Dashboard Analítico OMS</h1>
   <p>Visualização completa dos dados globais sobre o Transtorno do Espectro Autista (TEA), com base nos relatórios oficiais da Organização Mundial da Saúde, Global Burden of Disease Study 2021 e IBGE 2025.</p>
@@ -876,7 +876,7 @@
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 16px; padding: 8px;
   }
-  .tab-btn {
+  .tab-nav .tab-btn {
     display: flex; align-items: center; gap: 8px;
     padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
     font-size: 13px; font-weight: 700; letter-spacing: .3px;
@@ -884,9 +884,9 @@
     transition: background .2s, color .2s;
     white-space: nowrap;
   }
-  .tab-btn:hover { background: rgba(255,255,255,.07); color: #cbd5e1; }
-  .tab-btn.active { background: var(--tc); color: #fff; }
-  .tab-btn .tb-icon { font-size: 16px; }
+  .tab-nav .tab-btn:hover { background: rgba(255,255,255,.07); color: #cbd5e1; }
+  .tab-nav .tab-btn.active { background: var(--tc); color: #fff; }
+  .tab-nav .tab-btn .tb-icon { font-size: 16px; }
 
   /* TAB PANELS */
   .tab-panel { display: none; }
@@ -1501,6 +1501,10 @@
   }
 })();
 </script>
+  <div style="text-align:center;padding:32px 0 40px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px">
+    <span style="font-size:10.5px;color:#475569;display:block;margin-bottom:8px">Desenvolvido por</span>
+    <img src="rr-colorido-transp.png" alt="div.RR — Renan Rigoni" style="height:28px;opacity:.7;filter:brightness(1.1)">
+  </div>
 </section>
 </body>
 </html>
