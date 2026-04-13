@@ -61,6 +61,11 @@
     .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}
     .tab-btn.brazil.active{color:var(--br-green);border-bottom-color:var(--br-green)}
     .tab-btn .flag{margin-right:6px}
+    /* override: botoes do filter-bar nao herdam estilo das abas terapeuticas */
+    .filter-bar .tab-btn{display:inline-block;padding:16px 28px;font-size:13.5px;font-weight:700;border-radius:0;background:transparent;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap}
+    .filter-bar .tab-btn:hover{background:transparent;color:var(--text)}
+    .filter-bar .tab-btn.active{background:transparent;color:var(--primary);border-bottom-color:var(--primary)}
+    .filter-bar .tab-btn.brazil.active{background:transparent;color:var(--br-green);border-bottom-color:var(--br-green)}
 
     /* ── VIEWS ── */
     .view{display:none}.view.active{display:block}
@@ -876,7 +881,7 @@
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 16px; padding: 8px;
   }
-  .tab-nav .tab-btn {
+  .tab-btn {
     display: flex; align-items: center; gap: 8px;
     padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
     font-size: 13px; font-weight: 700; letter-spacing: .3px;
@@ -884,9 +889,9 @@
     transition: background .2s, color .2s;
     white-space: nowrap;
   }
-  .tab-nav .tab-btn:hover { background: rgba(255,255,255,.07); color: #cbd5e1; }
-  .tab-nav .tab-btn.active { background: var(--tc); color: #fff; }
-  .tab-nav .tab-btn .tb-icon { font-size: 16px; }
+  .tab-btn:hover { background: rgba(255,255,255,.07); color: #cbd5e1; }
+  .tab-btn.active { background: var(--tc); color: #fff; }
+  .tab-btn .tb-icon { font-size: 16px; }
 
   /* TAB PANELS */
   .tab-panel { display: none; }
